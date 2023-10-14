@@ -4,15 +4,17 @@ import path from 'path';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 
-import postRoutes from './routes/postRoutes';
-import userRoutes from './routes/userRoutes';
-import questRoutes from './routes/questRoutes';
-import dailyQuestRoutes from './routes/dailyQuestRoutes';
-import itemRoutes from './routes/itemRoutes';
-import groupRoutes from './routes/groupRoutes';
+import postRoutes from './routes/postRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 // initialize
 const app = express();
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // enable/disable cross origin resource sharing if necessary
 app.use(cors());
@@ -33,11 +35,7 @@ app.set('views', path.join(__dirname, '../src/views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use('/api/users', userRoutes);
-app.use('/api/quests', questRoutes);
 app.use('/api/homeTab', postRoutes);
-app.use('/api/dailyQuests', dailyQuestRoutes);
-app.use('/api/items', itemRoutes);
-app.use('/api/groups', groupRoutes);
 
 // additional init stuff should go before hitting the routing
 

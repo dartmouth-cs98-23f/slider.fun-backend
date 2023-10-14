@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import bcrypt from 'bcryptjs/dist/bcrypt';
+import bcrypt from 'bcryptjs/dist/bcrypt.js';
 
 const userSchema = new Schema(
   {
@@ -9,19 +9,6 @@ const userSchema = new Schema(
     password: String,
     userName: String,
     streak: Number,
-    quests: [{ type: Schema.Types.ObjectId, ref: 'Quest' }],
-    posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
-    inventory: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
-    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    stats: {
-      wisdom: Number,
-      strength: Number,
-      charisma: Number,
-      magic: Number,
-      health: Number,
-    },
-    groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
-
   },
   {
     toObject: { virtuals: true },

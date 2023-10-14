@@ -3,6 +3,7 @@
   "version": "5.0.0",
   "description": "",
   "author": "CS52",
+  "type": "module",
   "main": "src/server.js",
   "scripts": {
     "test": "eslint src; cypress run",
