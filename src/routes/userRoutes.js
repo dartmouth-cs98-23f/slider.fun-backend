@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as Users from '../controllers/user_controller';
+import * as Users from '../controllers/user_controller.js';
 // import * as Quest from '../controllers/quest_controller';
 // import { requireSignin } from '../services/passport';
 

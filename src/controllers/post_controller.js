@@ -1,6 +1,5 @@
-import Post from '../models/post_model';
-import { getUser } from './user_controller';
-import { getQuest } from './quest_controller';
+import Post from '../models/post_model.js';
+import { getUser } from './user_controller.js';
 
 // Create Post
 export async function createPost(postFields) {
@@ -11,7 +10,7 @@ export async function createPost(postFields) {
   post.likes = 0;
 
   post.user = await getUser(postFields.userId);
-  post.quest = await getQuest(postFields.questId);
+
   try {
     const savedpost = await post.save();
     return savedpost;
