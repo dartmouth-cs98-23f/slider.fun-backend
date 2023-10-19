@@ -1,4 +1,8 @@
 # Slider.Fun-Backend
 
 ### Starting the Server
-To start the server, please run `npm run devStart`
+Make sure mongoDB is running on your computer. Run the following command to be 100%:
+`brew services start mongodb/brew/mongodb-community`
+
+
+Run `npm run devStart`
