@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 // =============================================================================
 async function startServer() {
   try {
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/platform_db';
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/sliderfun';
     await mongoose.connect(mongoURI);
     console.log(`Mongoose connected to: ${mongoURI}`);
     const port = process.env.PORT || 9090;
