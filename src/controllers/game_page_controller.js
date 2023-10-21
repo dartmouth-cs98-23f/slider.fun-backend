@@ -23,7 +23,7 @@ export async function createGamePage(pageFields) {
     }
 }
 
-// Updateing a post
+// Updating game page
 export async function updateGamePage(id, pageFields) {
     try {
       const update = await GamePage.findByIdAndUpdate(id, pageFields);

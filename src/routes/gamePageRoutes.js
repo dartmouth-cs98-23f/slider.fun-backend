@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     res.json({ message: 'welcome to our game page router!' });
 });
 
-router.put('pageInfo', async (req, res) => {
+router.put('/updatePageInfo', async (req, res) => {
     try {
       const result = await Game.updateGamePage(req.params.id, req.body);
   
@@ -16,6 +16,7 @@ router.put('pageInfo', async (req, res) => {
       res.status(500).json({ error });
     }
 });
+
 
 
 export default router;
