@@ -1,4 +1,4 @@
-import GamePage from "../models/game_page_model";
+import GamePage from "../models/game_page_model.js";
 
 // create a new game
 export async function createGamePage(pageFields) {
@@ -20,5 +20,15 @@ export async function createGamePage(pageFields) {
       return savedGame;
     } catch (error) {
       throw new Error(`create game page error: ${error}`);
+    }
+}
+
+// Updateing a post
+export async function updateGamePage(id, pageFields) {
+    try {
+      const update = await GamePage.findByIdAndUpdate(id, pageFields);
+      return update;
+    } catch (error) {
+      throw new Error(`update game page error: ${error}`);
     }
   }

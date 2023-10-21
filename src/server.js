@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 
 import postRoutes from './routes/postRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import gamePageRoutes from './routes/gamePageRoutes.js';
 
 // initialize
 const app = express();
@@ -34,8 +35,10 @@ app.set('views', path.join(__dirname, '../src/views'));
 // enable json message body for posting data to API
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
+
 app.use('/api/users', userRoutes);
 app.use('/api/homeTab', postRoutes);
+app.use('/api/gamePage', gamePageRoutes);
 
 // additional init stuff should go before hitting the routing
 
