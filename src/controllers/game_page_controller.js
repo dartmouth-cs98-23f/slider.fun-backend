@@ -29,6 +29,27 @@ export async function updateGamePage(id, pageFields) {
       const update = await GamePage.findByIdAndUpdate(id, pageFields);
       return update;
     } catch (error) {
-      throw new Error(`update game page error: ${error}`);
+      throw new Error(`Update game page error: ${error}`);
     }
-  }
+}
+
+// Get game page data
+export async function getGamePageData(id) {
+    try {
+      const returnPost = await GamePage.findById(id);
+      return returnPost;
+    } catch (error) {
+      throw new Error(`Get game page data error: ${error}`);
+    }
+}
+
+// Delete game page data
+export async function deleteGameInfo(id) {
+    try {
+      const removePost = await GamePage.deleteOne({ _id: id });
+      return removePost.deletedCount;
+    } catch (error) {
+      throw new Error(`Remove post error: ${error}`);
+    }
+}
+  

@@ -58,7 +58,7 @@ export async function deletePost(id) {
   }
 }
 
-// Updateing a post
+// Updating a post
 export async function updatePost(id, postFields) {
   try {
     const update = await Post.findByIdAndUpdate(id, postFields);
