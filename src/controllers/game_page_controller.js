@@ -36,20 +36,20 @@ export async function updateGamePage(id, pageFields) {
 // Get game page data
 export async function getGamePageData(id) {
     try {
-      const returnPost = await GamePage.findById(id);
-      return returnPost;
+      const gameData = await GamePage.findById(id);
+      return gameData;
     } catch (error) {
       throw new Error(`Get game page data error: ${error}`);
     }
 }
 
 // Delete game page data
-export async function deleteGameInfo(id) {
+export async function deleteGameData(id) {
     try {
-      const removePost = await GamePage.deleteOne({ _id: id });
-      return removePost.deletedCount;
+      const removeInfo = await GamePage.deleteOne({ _id: id });
+      return removeInfo.deletedCount;
     } catch (error) {
-      throw new Error(`Remove post error: ${error}`);
+      throw new Error(`Remove game data error: ${error}`);
     }
 }
   

@@ -5,7 +5,7 @@ const router = Router();
 
 
 router.get('/', (req, res) => {
-    res.json({ message: 'welcome to our game page router!' });
+    res.json({ message: 'Welcome to our game page router!' });
 });
 
 // UPDATE GAME PAGE INFO
@@ -33,7 +33,7 @@ router.get('/gamePageInfo/:id', async (req, res) => {
 // DELETE GAME PAGE INFO
 router.delete('posts/:id', async (req, res) => {
   try {
-    const result = await Game.deleteGameInfo(req.params.id);
+    const result = await Game.deleteGameData(req.params.id);
 
     res.json(result);
   } catch (error) {
