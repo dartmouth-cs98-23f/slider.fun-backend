@@ -1,4 +1,4 @@
-import PhotoModel from '../models/photo_model';
+import PhotoModel from '../models/photo_model.js';
 
 // Delete photo properties data
 export async function deletePhotoProperties(id) {
