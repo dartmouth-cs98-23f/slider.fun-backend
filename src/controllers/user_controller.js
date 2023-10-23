@@ -13,6 +13,7 @@ export async function getUsers() {
     throw new Error(`Get users error: ${error}`);
   }
 }
+
 // delete user by id
 export async function deleteUser(id) {
   try {
