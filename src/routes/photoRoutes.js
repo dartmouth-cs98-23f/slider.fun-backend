@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import *  as Photo from '../controllers/photo_model_controller.js';
+import * as Photo from '../controllers/photo_controller.js';
 
 const router = Router();
 
