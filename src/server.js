@@ -4,9 +4,9 @@ import path from 'path';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 
-import postRoutes from './routes/postRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import photoPropertiesRoutes from './routes/photoPropertiesRoutes.js';
+import levelRoutes from './routes/levelRoutes.js'
 
 // initialize
 const app = express();
@@ -37,8 +37,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 
 app.use('/api/users', userRoutes);
-app.use('/api/homeTab', postRoutes);
 app.use('/api/gamePage', photoPropertiesRoutes);
+app.use('/api/levels', levelRoutes);
 
 // additional init stuff should go before hitting the routing
 
@@ -52,9 +52,9 @@ app.get('/', (req, res) => {
 async function startServer() {
   try {
     
-    const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://user:pdyYXaWLecj91ipy@slider.oo9dz0c.mongodb.net/?retryWrites=true&w=majority';
+    // const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://user:pdyYXaWLecj91ipy@slider.oo9dz0c.mongodb.net/?retryWrites=true&w=majority';
     
-    // const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/sliderfun';
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/sliderfun';
     
     await mongoose.connect(mongoURI);
     console.log(`Mongoose connected to: ${mongoURI}`);

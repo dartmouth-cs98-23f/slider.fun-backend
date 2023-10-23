@@ -7,7 +7,10 @@ const userSchema = new Schema(
     email: { type: String, unique: true, lowercase: true },
     password: String,
     userName: String,
-    level: Number
+    level: { type: Schema.Types.ObjectId, ref: 'Level' },
+
+    /* Johan needs to finish photo mode, controller, and routing before we can add here */
+    // photo:
   },
   {
     toObject: { virtuals: true },
