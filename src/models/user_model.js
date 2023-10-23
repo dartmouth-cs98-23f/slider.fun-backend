@@ -4,10 +4,10 @@ import bcrypt from 'bcryptjs/dist/bcrypt.js';
 const userSchema = new Schema(
   {
     name: String,
-    profileUrl: String,
     email: { type: String, unique: true, lowercase: true },
     password: String,
     userName: String,
+    level: Number
   },
   {
     toObject: { virtuals: true },
