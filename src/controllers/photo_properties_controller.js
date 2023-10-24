@@ -5,14 +5,14 @@ export async function initializePhotoProperties(pageFields) {
     const photo = new PhotoProperties();
     
     /** TODO: Figure out image here */
-    photo.image = '';
+    photo.image = pageFields.image;
 
-    photo.exposure = 0;
-    photo.contrast = 0;
-    photo.highlights = 0;
-    photo.shadows = 0;
-    photo.whites = 0;
-    photo.blacks = 0;
+    photo.exposure = pageFields.exposure;
+    photo.contrast = pageFields.contrast;
+    photo.highlights = pageFields.highlights;
+    photo.shadows = pageFields.shadows;
+    photo.whites = pageFields.whites;
+    photo.blacks = pageFields.blacks;
     
     try {
       const savedPhotoProperties = await photo.save();

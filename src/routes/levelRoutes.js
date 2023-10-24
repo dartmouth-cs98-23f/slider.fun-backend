@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 
 // CREATE NEW LEVEL
-router.post('/level/new', async (req, res) => {
+router.post('/new', async (req, res) => {
     try {
       const result = await Level.createLevel(req.body);
       res.json(result);
@@ -18,8 +18,19 @@ router.post('/level/new', async (req, res) => {
     }
 });
 
+// GET All LEVELS
+router.get('/all', async (req, res) => {
+    try {
+      const result = await Level.getAllLevels();
+  
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+});
+
 // UPDATE LEVEL
-router.put('/level/update', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
       const result = await Level.updateLevel(req.params.id, req.body);
       res.json(result);
@@ -29,7 +40,7 @@ router.put('/level/update', async (req, res) => {
 });
 
 // GET LEVEL
-router.get('/level/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
       const result = await Level.getLevel(req.params.id, req.body);
       res.json(result);
@@ -38,8 +49,9 @@ router.get('/level/:id', async (req, res) => {
     }
 });
 
+
 // DELETE LEVEL
-router.delete('/level/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
       const result = await Level.deleteLevel(req.params.id);
       res.json(result);
@@ -47,5 +59,6 @@ router.delete('/level/:id', async (req, res) => {
       res.status(500).json({ error });
     }
 });
+
 
 export default router;

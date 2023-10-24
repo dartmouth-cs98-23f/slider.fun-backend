@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 
 app.use('/api/users', userRoutes);
-app.use('/api/gamePage', photoPropertiesRoutes);
+app.use('/api/photoProperties', photoPropertiesRoutes);
 app.use('/api/levels', levelRoutes);
 
 // additional init stuff should go before hitting the routing

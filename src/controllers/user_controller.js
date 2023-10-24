@@ -13,6 +13,7 @@ export async function getUsers() {
     throw new Error(`Get users error: ${error}`);
   }
 }
+
 // delete user by id
 export async function deleteUser(id) {
   try {
@@ -26,7 +27,7 @@ export async function deleteUser(id) {
 // Return the user given their id
 export async function getUser(id) {
   try {
-    const user = await User.findById(id).populate('quests');
+    const user = await User.findById(id);
     return user;
   } catch (error) {
     throw new Error(`Get user error: ${error}`);
@@ -67,7 +68,7 @@ export const signup = async ({
   user.password = password;
   user.userName = userName;
 
-  /*TODO assign user a level here */
+  /*TODO assign user a level here */ 
 
   await user.save();
   return tokenForUser(user);

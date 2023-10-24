@@ -32,6 +32,16 @@ export async function createLevel(levelFields) {
       throw new Error(`Get level error: ${error}`);
     }
   }
+
+  // Get All levels
+export async function getAllLevels() {
+  try {
+    const allPosts = await Level.find({}).sort([['date', -1]]);
+    return allPosts;
+  } catch (error) {
+    throw new Error(`Get levels error: ${error}`);
+  }
+}
   
   
   // Delete a level

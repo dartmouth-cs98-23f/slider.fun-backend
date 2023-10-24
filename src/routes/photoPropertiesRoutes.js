@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 // CREATE NEW PHOTO PROPERTIES
-router.post('/photoProperties/new', async (req, res) => {
+router.post('/new', async (req, res) => {
   try {
     const result = await Photo.initializePhotoProperties(req.body);
     res.json(result);
@@ -19,7 +19,7 @@ router.post('/photoProperties/new', async (req, res) => {
 });
 
 // UPDATE PHOTO PROPERTIES INFO
-router.put('/photoProperties/update', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
       const result = await Photo.updatePhotoProperties(req.params.id, req.body);
       res.json(result);
@@ -29,7 +29,7 @@ router.put('/photoProperties/update', async (req, res) => {
 });
 
 // GET PHOTO PROPERTIES INFO
-router.get('/photoProperties/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const result = await Photo.getPhotoProperties(req.params.id, req.body);
     res.json(result);
@@ -39,7 +39,7 @@ router.get('/photoProperties/:id', async (req, res) => {
 });
 
 // DELETE PHOTO PROPERTIES INFO
-router.delete('/photoProperties/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const result = await Photo.deletePhotoProperties(req.params.id);
     res.json(result);
