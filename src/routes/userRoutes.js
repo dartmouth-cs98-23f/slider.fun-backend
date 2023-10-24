@@ -64,8 +64,9 @@ router.put('/:id', async (req, res) => {
 //  delete all users
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
+  console.log(id)
   try {
-    const result = await Users.deleteUser(id.substring(1));
+    const result = await Users.deleteUser(id);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error });
