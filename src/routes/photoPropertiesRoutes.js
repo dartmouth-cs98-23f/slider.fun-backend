@@ -18,7 +18,7 @@ router.post('/new', async (req, res) => {
   }
 });
 
-// GET POSTS
+// GET ALL PHOTO PROPERTIES
 router.get('/all', async (req, res) => {
   try {
     const result = await Photo.getAll();
