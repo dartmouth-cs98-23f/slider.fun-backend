@@ -43,6 +43,16 @@ export async function getPhotoProperties(id) {
     }
 }
 
+// Get photo properties data
+export async function getAll() {
+  try {
+    const allPhotoProperties = await PhotoProperties.find({}).sort([['date', -1]]);
+    return allPhotoProperties;
+  } catch (error) {
+    throw new Error(`Get posts error: ${error}`);
+  }
+}
+
 // Delete photo properties data
 export async function deletePhotoProperties(id) {
     try {
