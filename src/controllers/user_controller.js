@@ -48,6 +48,7 @@ export async function updateUser(id, updateFields) {
 
 export const signin = (user) => {
   // WHAT DO WE DO HERERERERERERERERERERE ************************
+  // FOR TERM 2 (maybe?)
 };
 
 export const signup = async ({
