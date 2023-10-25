@@ -22,11 +22,20 @@ router.post('/new', async (req, res) => {
 router.get('/all', async (req, res) => {
     try {
       const result = await Level.getAllLevels();
-  
       res.json(result);
     } catch (error) {
       res.status(500).json({ error });
     }
+});
+
+// GET LEVEL BY LEVEL NUMBER
+router.get('/levelByNumber/:number', async (req, res) => {
+  try {
+    const result = await Level.getLevelByNumber(req.params.number);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 });
 
 // UPDATE LEVEL
