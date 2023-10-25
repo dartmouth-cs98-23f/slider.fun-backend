@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
     res.json({ message: 'Welcome to our level router!' });
 });
 
-
 // CREATE NEW LEVEL
 router.post('/new', async (req, res) => {
     try {
@@ -57,7 +56,6 @@ router.get('/:id', async (req, res) => {
       res.status(500).json({ error });
     }
 });
-
 
 // DELETE LEVEL
 router.delete('/:id', async (req, res) => {
