@@ -1,6 +1,7 @@
 import jwt from 'jwt-simple';
 import dotenv from 'dotenv';
 import User from '../models/user_model.js';
+import { getLevel } from './level_controller.js';
 
 dotenv.config({ silent: true });
 
@@ -48,10 +49,11 @@ export async function updateUser(id, updateFields) {
 
 export const signin = (user) => {
   // WHAT DO WE DO HERERERERERERERERERERE ************************
+  // FOR TERM 2 (maybe?)
 };
 
 export const signup = async ({
-  email, password, name, userName,
+  email, password, name, userName, level
 }) => {
   if (!email || !password) {
     throw new Error('You must provide email and password');
@@ -63,12 +65,12 @@ export const signup = async ({
   }
 
   const user = new User();
+  
   user.email = email;
   user.name = name;
   user.password = password;
   user.userName = userName;
-
-  /*TODO assign user a level here */ 
+  user.level = await getLevel(level);
 
   await user.save();
   return tokenForUser(user);

@@ -13,6 +13,8 @@ const LevelSchema = new Schema({
     saturation: Boolean,
     vibrance: Boolean,
     brightness: Boolean,
+    levelNumber: Number,
+    nextLevel: { type: Schema.Types.ObjectId, ref: 'Level' },
   
   }, {
     toObject: { virtuals: true },

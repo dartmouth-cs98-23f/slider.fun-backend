@@ -51,9 +51,7 @@ app.get('/', (req, res) => {
 // =============================================================================
 async function startServer() {
   try {
-    
-    // const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://user:pdyYXaWLecj91ipy@slider.oo9dz0c.mongodb.net/?retryWrites=true&w=majority';
-    
+        
     const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/sliderfun';
     
     await mongoose.connect(mongoURI);

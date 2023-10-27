@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
     res.json({ message: 'Welcome to our level router!' });
 });
 
-
 // CREATE NEW LEVEL
 router.post('/new', async (req, res) => {
     try {
@@ -22,7 +21,16 @@ router.post('/new', async (req, res) => {
 router.get('/all', async (req, res) => {
     try {
       const result = await Level.getAllLevels();
-  
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+});
+
+// GET LEVEL BY LEVEL NUMBER
+router.get('/levelByNumber/:number', async (req, res) => {
+    try {
+      const result = await Level.getLevelByNumber(req.params.number);
       res.json(result);
     } catch (error) {
       res.status(500).json({ error });
@@ -48,7 +56,6 @@ router.get('/:id', async (req, res) => {
       res.status(500).json({ error });
     }
 });
-
 
 // DELETE LEVEL
 router.delete('/:id', async (req, res) => {
