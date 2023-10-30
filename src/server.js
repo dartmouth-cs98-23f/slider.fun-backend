@@ -7,7 +7,8 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import photoRoutes from './routes/photoRoutes.js';
 import photoPropertiesRoutes from './routes/photoPropertiesRoutes.js';
-import levelRoutes from './routes/levelRoutes.js'
+import levelRoutes from './routes/levelRoutes.js';
+import propertyRoutes from './routes/propertyRoutes.js'
 
 
 // initialize
@@ -42,6 +43,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/photo', photoRoutes);
 app.use('/api/photoProperties', photoPropertiesRoutes);
 app.use('/api/levels', levelRoutes); 
+app.use('/api/property', propertyRoutes);
 
 // default index route
 app.get('/', (req, res) => {

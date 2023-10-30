@@ -1,5 +1,5 @@
 import Photo from '../models/photo_model.js';
-import {getPhotoProperties} from '../controllers/photo_properties_controller.js'
+import { getPhotoProperties } from '../controllers/photo_properties_controller.js'
 
 /* 
  * Create a photo object
@@ -8,8 +8,8 @@ import {getPhotoProperties} from '../controllers/photo_properties_controller.js'
 export async function createPhoto(photoFields) {
   try {
     const newPhoto = new Photo();
-    newPhoto.imageUrl = photoFields.imageUrl
-    newPhoto.photoProperties = await getPhotoProperties(photoFields.photoProperties)
+    newPhoto.imageUrl = photoFields.imageUrl;
+    newPhoto.photoProperties = await getPhotoProperties(photoFields.photoProperties);
     const photo = await newPhoto.save();
     return photo;
   } catch (error) {
@@ -72,18 +72,5 @@ export async function getPhotoById(id) {
     return photo;
   } catch (error) {
     throw new Error(`Get Photo by ID error: ${error}`);
-  }
-}
-
-
-export async function getImageUrlByPhotoId(id) {
-  try {
-    const photo = await Photo.findById(id);
-    console.log(photo);
-    console.log(photo.imageUrl);
-    return photo.imageUrl;
- 
-  } catch (error) {
-    throw new Error(`Get Image URL by Photo ID error: ${error}`);
   }
 }
