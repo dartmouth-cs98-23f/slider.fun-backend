@@ -1,6 +1,7 @@
 import jwt from 'jwt-simple';
 import dotenv from 'dotenv';
 import User from '../models/user_model.js';
+import { getLevel } from './level_controller.js';
 
 dotenv.config({ silent: true });
 
@@ -27,7 +28,7 @@ export async function deleteUser(id) {
 // Return the user given their id
 export async function getUser(id) {
   try {
-    const user = await User.findById(id).populate('quests');
+    const user = await User.findById(id);
     return user;
   } catch (error) {
     throw new Error(`Get user error: ${error}`);
@@ -42,16 +43,17 @@ export async function updateUser(id, updateFields) {
 
     return user;
   } catch (error) {
-    throw new Error(`Get posts error: ${error}`);
+    throw new Error(`Update user error: ${error}`);
   }
 }
 
 export const signin = (user) => {
   // WHAT DO WE DO HERERERERERERERERERERE ************************
+  // FOR TERM 2 (maybe?)
 };
 
 export const signup = async ({
-  email, password, name, userName, profileUrl,
+  email, password, name, userName, level
 }) => {
   if (!email || !password) {
     throw new Error('You must provide email and password');
@@ -63,12 +65,12 @@ export const signup = async ({
   }
 
   const user = new User();
+  
   user.email = email;
   user.name = name;
   user.password = password;
   user.userName = userName;
-  user.streak = 10;
-  user.profileUrl = 'https://as2.ftcdn.net/v2/jpg/01/15/85/23/1000_F_115852367_E6iIYA8OxHDmRhjw7kOq4uYe4t440f14.jpg';
+  user.level = await getLevel(level);
 
   await user.save();
   return tokenForUser(user);

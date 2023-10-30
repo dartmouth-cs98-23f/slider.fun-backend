@@ -7,7 +7,10 @@ const userSchema = new Schema(
     email: { type: String, unique: true, lowercase: true },
     password: String,
     userName: String,
-    level: Number
+    level: { type: Schema.Types.ObjectId, ref: 'Level' },
+
+    /* Johan needs to finish photo mode, controller, and routing before we can add here */
+    // photo:
   },
   {
     toObject: { virtuals: true },
@@ -15,18 +18,11 @@ const userSchema = new Schema(
     timestamps: true,
   },
 );
+
 userSchema.pre('save', async function beforeyYourModelSave(next) {
-  // this is a reference to our model
-  // the function runs in some other context so DO NOT bind it
+  
   const user = this;
-
   if (!user.isModified('password')) return next();
-
-  // TODO: do stuff here
-
-  // when done run the **next** callback with no arguments
-  // call next with an error if you encounter one
-  // return next();
 
   try {
     // salt, hash, then set password to hash
@@ -38,6 +34,7 @@ userSchema.pre('save', async function beforeyYourModelSave(next) {
     return next(error);
   }
 });
+
 // note use of named function rather than arrow notation, required here
 userSchema.methods.comparePassword = async function comparePassword(candidatePassword) {
   const comparison = await bcrypt.compare(candidatePassword, this.password);

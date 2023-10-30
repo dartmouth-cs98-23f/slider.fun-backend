@@ -43,7 +43,6 @@ router.get('/all', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const result = await Users.getUser(req.params.id);
-
     res.json(result);
   } catch (error) {
     res.status(500).json({ error });
@@ -51,6 +50,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
+  console.log(req.body)
   try {
     await Users.updateUser(req.params.id, req.body);
     const result = await Users.getUser(req.params.id);
@@ -60,22 +60,13 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// router.put('addQuest/:id', async (req, res) => {
-//   try {
-//     const newQuest = await Quest.createQuest();
-//     await Users.updateUser(req.params.id, req.body);
-//     const result = await Users.getUser(req.params.id);
-//     res.json(result);
-//   } catch (error) {
-//     res.status(500).json({ error });
-//   }
-// });
 
 //  delete all users
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
+  console.log(id)
   try {
-    const result = await Users.deleteUser(id.substring(1));
+    const result = await Users.deleteUser(id);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error });
