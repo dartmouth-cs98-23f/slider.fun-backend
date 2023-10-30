@@ -5,8 +5,10 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 
 import userRoutes from './routes/userRoutes.js';
+import photoRoutes from './routes/photoRoutes.js';
 import photoPropertiesRoutes from './routes/photoPropertiesRoutes.js';
 import levelRoutes from './routes/levelRoutes.js'
+
 
 // initialize
 const app = express();
@@ -37,6 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 
 app.use('/api/users', userRoutes);
+app.use('/api/homeTab', postRoutes);
+app.use('/api/photo', photoRoutes);
 app.use('/api/photoProperties', photoPropertiesRoutes);
 app.use('/api/levels', levelRoutes);
 
@@ -51,7 +55,6 @@ app.get('/', (req, res) => {
 // =============================================================================
 async function startServer() {
   try {
-        
     const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/sliderfun';
     
     await mongoose.connect(mongoURI);
