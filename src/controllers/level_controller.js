@@ -14,6 +14,10 @@ export async function createLevel(levelFields) {
   level.saturation = levelFields.saturation;
   level.vibrance = levelFields.vibrance;
   level.brightness = levelFields.brightness;
+  level.grayscale = levelFields.grayscale;
+  level.sepia = levelFields.sepia;
+  level.hueRotate = levelFields.hueRotate;
+  level.blur = levelFields.blur;
   level.levelNumber = levelFields.levelNumber;
   level.nextLevel = await getLevel(levelFields.nextLevel);
   
