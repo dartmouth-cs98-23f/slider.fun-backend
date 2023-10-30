@@ -38,9 +38,7 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads
 
 app.use('/api/users', userRoutes);
 app.use('/api/photoProperties', photoPropertiesRoutes);
-app.use('/api/levels', levelRoutes);
-
-// additional init stuff should go before hitting the routing
+app.use('/api/levels', levelRoutes); 
 
 // default index route
 app.get('/', (req, res) => {
