@@ -6,15 +6,15 @@ import {getPhotoProperties} from '../controllers/photo_properties_controller.js'
  * Takes in as a parameter a Photo Object
 */
 export async function createPhoto(photoFields) {
-    try {
-      const newPhoto = new Photo();
-      newPhoto.imageUrl = photoFields.imageUrl
-      newPhoto.photoProperties = await getPhotoProperties(photoFields.photoProperties)
-      const photo = await newPhoto.save();
-      return photo;
-    } catch (error) {
-      throw new Error(`Create Photo error: ${error}`);
-    }
+  try {
+    const newPhoto = new Photo();
+    newPhoto.imageUrl = photoFields.imageUrl
+    newPhoto.photoProperties = await getPhotoProperties(photoFields.photoProperties)
+    const photo = await newPhoto.save();
+    return photo;
+  } catch (error) {
+    throw new Error(`Create Photo error: ${error}`);
+  }
 }
 
 /* 
@@ -23,12 +23,12 @@ export async function createPhoto(photoFields) {
  *     - gets a list of all the photos
 */
 export async function getAllPhotos() {
-    try {
-      const photos = await Photo.find({}).sort([['date', -1]]);
-      return photos;
-    } catch {
-      throw new Error(`Get All Photo error: ${error}`);
-    }
+  try {
+    const photos = await Photo.find({}).sort([['date', -1]]);
+    return photos;
+  } catch {
+    throw new Error(`Get All Photo error: ${error}`);
+  }
 }
 
 /* 
@@ -38,12 +38,12 @@ export async function getAllPhotos() {
  *     - takes the photo id as a parameter
 */
 export async function deletePhoto(id) {
-    try {
-      const deletedPhoto = await Photo.deleteOne({_id: id});
-      return deletedPhoto.deletedCount;
-    } catch (error) {
-      throw new Error(`Delete Photo error: ${error}`);
-    }
+  try {
+    const deletedPhoto = await Photo.deleteOne({_id: id});
+    return deletedPhoto.deletedCount;
+  } catch (error) {
+    throw new Error(`Delete Photo error: ${error}`);
+  }
 }
 
 /* 
@@ -53,12 +53,12 @@ export async function deletePhoto(id) {
  *     - takes the photo id as a parameter
 */
 export async function updatePhoto(id, updateFields) {
-    try {
-        const updatedPhoto = await Photo.findByIdAndUpdate(id, updateFields);
-        return updatedPhoto;
-      } catch (error) {
-        throw new Error(`Update Photo error: ${error}`);
-      }
+  try {
+    const updatedPhoto = await Photo.findByIdAndUpdate(id, updateFields);
+    return updatedPhoto;
+  } catch (error) {
+    throw new Error(`Update Photo error: ${error}`);
+  }
 }
 
 /* 
@@ -67,12 +67,12 @@ export async function updatePhoto(id, updateFields) {
  *     - takes the photo id as a parameter
 */
 export async function getPhotoById(id) {
-    try {
-      const photo = await Photo.findById(id);
-      return photo;
-    } catch (error) {
-      throw new Error(`Get Photo by ID error: ${error}`);
-    }
+  try {
+    const photo = await Photo.findById(id);
+    return photo;
+  } catch (error) {
+    throw new Error(`Get Photo by ID error: ${error}`);
+  }
 }
 
 
