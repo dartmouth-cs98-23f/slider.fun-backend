@@ -39,7 +39,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 
 app.use('/api/users', userRoutes);
-app.use('/api/homeTab', postRoutes);
 app.use('/api/photo', photoRoutes);
 app.use('/api/photoProperties', photoPropertiesRoutes);
 app.use('/api/levels', levelRoutes); 
