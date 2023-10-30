@@ -4,15 +4,17 @@ import PhotoProperties from "../models/photo_properties_model.js";
 export async function initializePhotoProperties(pageFields) {
     const photo = new PhotoProperties();
     
-    /** TODO: Figure out image here */
-    photo.image = pageFields.image;
-
     photo.exposure = pageFields.exposure;
     photo.contrast = pageFields.contrast;
     photo.highlights = pageFields.highlights;
     photo.shadows = pageFields.shadows;
     photo.whites = pageFields.whites;
     photo.blacks = pageFields.blacks;
+    photo.tint = pageFields.tint;
+    photo.temperature = pageFields.temperature;
+    photo.saturation = pageFields.saturation;
+    photo.vibrance = pageFields.vibrance;
+    photo.brightness = pageFields.brightness;
     
     try {
       const savedPhotoProperties = await photo.save();
