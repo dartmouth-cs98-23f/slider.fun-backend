@@ -7,14 +7,13 @@ import {getPhotoProperties} from '../controllers/photo_properties_controller.js'
 */
 export async function createPhoto(photoFields) {
     try {
-        const newPhoto = new PhotoModel();
-        newPhoto.imageUrl = photoFields.imageUrl
-        newPhoto.photoProperties = await getPhotoProperties(photoFields.photoPropertiesId)
-        const photo = await newPhoto.save();
-    
-        return photo;
+      const newPhoto = new PhotoModel();
+      newPhoto.imageUrl = photoFields.imageUrl
+      newPhoto.photoProperties = await getPhotoProperties(photoFields.photoPropertiesId)
+      const photo = await newPhoto.save();
+      return photo;
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error '});
+      throw new Error(`Create Photo error: ${error}`);
     }
 }
 
@@ -25,10 +24,10 @@ export async function createPhoto(photoFields) {
 */
 export async function getAllPhotos() {
     try {
-        const photos = await PhotoModel.find();
-        res.status(200).json(photos);
+      const photos = await PhotoModel.find({}).sort([['date', -1]]);
+      return photos;
     } catch {
-        res.status(500).json({ error: 'Internal Server Error' });
+      throw new Error(`Get All Photo error: ${error}`);
     }
 }
 
@@ -40,14 +39,10 @@ export async function getAllPhotos() {
 */
 export async function deletePhoto(id) {
     try {
-        const deletedPhoto = await PhotoModel.findByIdAndRemove(id);
-        if (!deletedPhoto) {
-            res.status(404).json({ error: 'Photo not found'});
-        } else {
-            res.status(204).send(); // no content for a successful delete
-        } 
+      const deletedPhoto = await PhotoModel.findByIdAndRemove(id);
+      return deletedPhoto.deletedCount;
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
+      throw new Error(`Delete Photo error: ${error}`);
     }
 }
 
@@ -60,14 +55,9 @@ export async function deletePhoto(id) {
 export async function updatePhoto(id, updateFields) {
     try {
         const updatedPhoto = await PhotoModel.findByIdAndUpdate(id, updateFields);
-        if (!updatedPhoto) {
-          res.status(404).json({ error: 'Photo not found' });
-        } else {
-          res.status(200).json(updatedPhoto);
-          return updatedPhoto;
-        }
+        return updatedPhoto;
       } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
+        throw new Error(`Update Photo error: ${error}`);
       }
 }
 
@@ -79,13 +69,21 @@ export async function updatePhoto(id, updateFields) {
 export async function getPhotoById(id) {
     try {
       const photo = await PhotoModel.findById(id);
-      if (!photo) {
-        res.status(404).json({ error: 'Photo not found' });
-      } else {
-        res.status(200).json(photo);
-        return photo;
-      }
+      return photo;
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      throw new Error(`Get Photo by ID error: ${error}`);
     }
+}
+
+
+export async function getImageUrlByPhotoId(id) {
+  try {
+    const photo = await PhotoModel.findById(id);
+    console.log(photo);
+    console.log(photo.imageUrl);
+    return photo.imageUrl;
+ 
+  } catch (error) {
+    throw new Error(`Get Image URL by Photo ID error: ${error}`);
+  }
 }

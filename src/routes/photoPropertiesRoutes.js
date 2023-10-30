@@ -22,7 +22,6 @@ router.post('/new', async (req, res) => {
 router.get('/all', async (req, res) => {
   try {
     const result = await Photo.getAll();
-
     res.json(result);
   } catch (error) {
     res.status(500).json({ error });
