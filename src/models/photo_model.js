@@ -9,8 +9,8 @@ import mongoose, { Schema } from 'mongoose';
 
 const PhotoSchema = new Schema(
     {
-        imageId: Number,
-        photoProperties: { type: Schema.Types.ObjectId, ref: 'Properties'}
+        imageUrl: String,
+        photoProperties: { type: Schema.Types.ObjectId, ref: 'PhotoProperties'}
     },
     {
         toObject: { virtuals: true },

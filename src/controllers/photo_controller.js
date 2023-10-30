@@ -1,25 +1,18 @@
 import PhotoModel from '../models/photo_model.js';
-
-// Delete photo properties data
-export async function deletePhotoProperties(id) {
-    try {
-      const removeInfo = await PhotoProperties.deleteOne({ _id: id });
-      return removeInfo.deletedCount;
-    } catch (error) {
-      throw new Error(`Remove Photo Properties error: ${error}`);
-    }
-}
+import {getPhotoProperties} from '../controllers/photo_properties_controller.js'
 
 /* 
  * Create a photo object
  * Takes in as a parameter a Photo Object
 */
-export async function createPhoto(newPhoto) {
+export async function createPhoto(photoFields) {
     try {
-        const newPhoto = new PhotoModel(newPhoto);
-        await newPhoto.save();
-        res.status(201).json(newPhoto);
-        return newPhoto;
+        const newPhoto = new PhotoModel();
+        newPhoto.imageUrl = photoFields.imageUrl
+        newPhoto.photoProperties = await getPhotoProperties(photoFields.photoPropertiesId)
+        const photo = await newPhoto.save();
+    
+        return photo;
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error '});
     }

@@ -7,7 +7,25 @@ router.get('/', (req, res) => {
     res.json({ message: 'Welcome to our photo router!' });
 });
 
-router.put('/updatePhoto', async (req, res) => {
+router.post('/new', async (req, res) => {
+    try {
+        const result = await Photo.createPhoto(req.body);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+})
+
+router.get('/all', async (req, res) => {
+    try {
+        const result = await Photo.getAllPhotos();
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+})
+
+router.put('/:id', async (req, res) => {
     try {
         const result = await Photo.updatePhoto(req.params.id, req.body);
         res.json(result);
@@ -16,7 +34,7 @@ router.put('/updatePhoto', async (req, res) => {
     }
 });
 
-router.get('/photoInfo/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const result = await Photo.getPhotoById(req.params.id, req.body);
         res.json(result);
@@ -25,7 +43,7 @@ router.get('/photoInfo/:id', async (req, res) => {
     }
 })
 
-router.delete('/photoInfo/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const result = await Photo.deletePhoto(req.params.id);
         res.json(result);
