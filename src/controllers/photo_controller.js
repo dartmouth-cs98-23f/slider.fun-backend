@@ -39,7 +39,7 @@ export async function getAllPhotos() {
 */
 export async function deletePhoto(id) {
     try {
-      const deletedPhoto = await Photo.findByIdAndRemove(id);
+      const deletedPhoto = await Photo.deleteOne({_id: id});
       return deletedPhoto.deletedCount;
     } catch (error) {
       throw new Error(`Delete Photo error: ${error}`);
