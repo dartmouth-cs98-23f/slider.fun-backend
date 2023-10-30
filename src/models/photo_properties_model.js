@@ -9,7 +9,11 @@ const PhotoPropertiesSchema = new Schema({
     shadows: Number,
     whites: Number,
     blacks: Number,
-  
+    tint: Number,
+    temperature: Number,
+    saturation: Number,
+    vibrance: Number,
+    brightness: Number,
   }, {
     toObject: { virtuals: true },
     toJSON: { virtuals: true },
