@@ -25,8 +25,6 @@ router.post('/new', async (req, res) => {
     }
 });
 
-
-
 router.get('/imageUrl/:id', async (req, res) => {
     try {
         const result = await Photo.getImageUrlByPhotoId(req.params.id, req.body);
