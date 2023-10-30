@@ -13,6 +13,11 @@ export async function initializePhotoProperties(pageFields) {
     photo.shadows = pageFields.shadows;
     photo.whites = pageFields.whites;
     photo.blacks = pageFields.blacks;
+    photo.tint = pageFields.tint;
+    photo.temperature = pageFields.temperature;
+    photo.saturation = pageFields.saturation;
+    photo.vibrance = pageFields.vibrance;
+    photo.brightness = pageFields.brightness;
     
     try {
       const savedPhotoProperties = await photo.save();
