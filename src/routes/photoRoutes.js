@@ -7,6 +7,15 @@ router.get('/', (req, res) => {
     res.json({ message: 'Welcome to our photo router!' });
 });
 
+router.get('/all', async (req, res) => {
+    try {
+        const result = await Photo.getAllPhotos();
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+});
+
 router.post('/new', async (req, res) => {
     try {
         const result = await Photo.createPhoto(req.body);
@@ -14,11 +23,13 @@ router.post('/new', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error });
     }
-})
+});
 
-router.get('/all', async (req, res) => {
+
+
+router.get('/imageUrl/:id', async (req, res) => {
     try {
-        const result = await Photo.getAllPhotos();
+        const result = await Photo.getImageUrlByPhotoId(req.params.id, req.body);
         res.json(result);
     } catch (error) {
         res.status(500).json({ error });
