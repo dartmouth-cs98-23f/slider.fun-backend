@@ -2,7 +2,6 @@ import mongoose, { Schema } from 'mongoose';
 
 
 const PhotoPropertiesSchema = new Schema({
-    image: String,
     exposure: Number,
     contrast: Number,
     highlights: Number,

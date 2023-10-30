@@ -4,9 +4,6 @@ import PhotoProperties from "../models/photo_properties_model.js";
 export async function initializePhotoProperties(pageFields) {
     const photo = new PhotoProperties();
     
-    /** TODO: Figure out image here */
-    photo.image = pageFields.image;
-
     photo.exposure = pageFields.exposure;
     photo.contrast = pageFields.contrast;
     photo.highlights = pageFields.highlights;
