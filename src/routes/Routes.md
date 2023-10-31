@@ -11,11 +11,11 @@
 #### Photo Routes
 | Route | HTTP Request | Module | Description |
 | -------- | -------- | -------- | -------- |
-|https://slider-fun.onrender.com/api/photos/all | get | photoRoutes | get all photos
-| https://slider-fun.onrender.com/api/photos/new | post | photoRoutes | create photo
-|https://slider-fun.onrender.com/api/photos/:id | put | photoRoutes | update photo by id
-|https://slider-fun.onrender.com/api/photos/:id | get | photoRoutes | get photo by id |
-|https://slider-fun.onrender.com/api/photos/:id | delete | photoRoutes | delete photo by id
+|https://slider-fun.onrender.com/api/photo/all | get | photoRoutes | get all photos
+| https://slider-fun.onrender.com/api/photo/new | post | photoRoutes | create photo
+|https://slider-fun.onrender.com/api/photo/:id | put | photoRoutes | update photo by id
+|https://slider-fun.onrender.com/api/photo/:id | get | photoRoutes | get photo by id |
+|https://slider-fun.onrender.com/api/photo/:id | delete | photoRoutes | delete photo by id
 #### Photo Property Routes
 | Route | HTTP Request | Module | Description |
 | -------- | -------- | -------- | -------- |
