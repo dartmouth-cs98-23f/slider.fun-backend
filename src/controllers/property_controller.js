@@ -3,13 +3,12 @@ import Property from "../models/property_model.js"
 // Initialize photo propertie
 export async function initializePhotoProperty(propertyFields) {
     const property = new Property();
-    property.property.name = propertyFields.property.name;
-    property.property.property = propertyFields.property.property;
-    property.property.value = propertyFields.property.value;
-    property.property.range.min = propertyFields.property.range.min;
-    property.property.range.max = propertyFields.property.range.max;
-    property.property.unit = propertyFields.property.unit;
-
+    property.name = propertyFields.name;
+    property.property = propertyFields.property;
+    property.value = propertyFields.value;
+    property.range.min = propertyFields.range.min;
+    property.range.max = propertyFields.range.max;
+    property.unit = propertyFields.unit;
 
     try {
         const savedProperty = await property.save();
@@ -27,5 +26,35 @@ export async function getAll() {
       return allProperties;
     } catch (error) {
       throw new Error(`Get all Properties error: ${error}`);
+    }
+}
+
+// Updating Property
+export async function updateProperty(id, propertyFields) {
+    try {
+      const update = await Property.findByIdAndUpdate(id, propertyFields);
+      return update;
+    } catch (error) {
+      throw new Error(`Update Property error: ${error}`);
+    }
+}
+
+// Get Property data
+export async function getProperty(id) {
+    try {
+      const property = await Property.findById(id);
+      return property;
+    } catch (error) {
+      throw new Error(`Get Property data error: ${error}`);
+    }
+}
+  
+// Delete Property data
+export async function deleteProperty(id) {
+    try {
+      const removeInfo = await Property.deleteOne({ _id: id });
+      return removeInfo.deletedCount;
+    } catch (error) {
+      throw new Error(`Remove Property error: ${error}`);
     }
   }

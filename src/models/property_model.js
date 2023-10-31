@@ -2,17 +2,14 @@ import mongoose, { Schema } from 'mongoose';
 
 
 const PropertySchema = new Schema({
-    property: {
-        name: String,
-        property: String,
-        value: Number,
-        range: {
-            min: Number,
-            max: Number
-        },
-        unit: String,
+    name: String,
+    property: String,
+    value: Number,
+    range: {
+        min: Number,
+        max: Number
     },
-  
+    unit: String,
 }, {
   toObject: { virtuals: true },
   toJSON: { virtuals: true },

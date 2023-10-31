@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import * as Users from '../controllers/user_controller.js';
-// import * as Quest from '../controllers/quest_controller';
 // import { requireSignin } from '../services/passport';
 
 const router = Router();
@@ -59,7 +58,6 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ error });
   }
 });
-
 
 //  delete all users
 router.delete('/:id', async (req, res) => {
