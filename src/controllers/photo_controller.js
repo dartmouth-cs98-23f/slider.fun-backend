@@ -74,6 +74,42 @@ export async function updatePhoto(id, updateFields) {
   }
 }
 
+export async function addProperty(id, updateFields) {
+  try {
+    const photo = await Photo.findById(id);
+    const newProperty = {
+      name: updateFields.name,
+      property: updateFields.property,
+      value: updateFields.value,
+      range: {
+        min: updateFields.range.min,
+        max: updateFields.range.max
+      },
+      unit: updateFields.unit
+    };
+    photo.photoProperties.push(newProperty);
+    const updatedPhoto = await photo.save();
+    return updatedPhoto;
+  } catch (error) {
+    throw new Error(`Get Photo by ID error: ${error}`);
+  }
+}
+
+export async function removeProperty(id, updateFields) {
+  try {
+    const photo = await Photo.findById(id);
+    const propertyToRemove = updateFields.property;
+    
+    photo.photoProperties = photo.photoProperties.filter(property => property.name !== propertyToRemove);
+
+    const updatedPhoto = await photo.save();
+    return updatedPhoto;
+  } catch (error) {
+    throw new Error(`Get Photo by ID error: ${error}`);
+  }
+}
+
+
 /* 
  * Gets a Photo by ID
  * Function details:
@@ -87,3 +123,4 @@ export async function getPhotoById(id) {
     throw new Error(`Get Photo by ID error: ${error}`);
   }
 }
+

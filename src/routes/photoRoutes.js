@@ -25,6 +25,24 @@ router.post('/new', async (req, res) => {
     }
 });
 
+router.put('/addProperty/:id', async (req, res) => {
+    try {
+        const result = await Photo.addProperty(req.params.id, req.body);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+});
+
+router.delete('/removeProperty/:id', async (req, res) => {
+    try {
+        const result = await Photo.removeProperty(req.params.id, req.body);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+});
+
 router.put('/:id', async (req, res) => {
     try {
         const result = await Photo.updatePhoto(req.params.id, req.body);
