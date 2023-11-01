@@ -2,7 +2,18 @@ import mongoose, { Schema } from 'mongoose';
 
 const PhotoSchema = new Schema({
     imageUrl: String,
-    photoProperties: {type: Schema.Types.ObjectId, ref: 'PhotoProperties'}
+    photoProperties: [
+        {
+            name: { type: String, required: true },
+            property: { type: String, required: true },
+            value: { type: Number, required: true },
+            range: {
+                min: { type: Number, required: true },
+                max: { type: Number, required: true },
+            },
+            unit: { type: String, required: true },
+        }
+    ]
 
 },{
     toObject: { virtuals: true },

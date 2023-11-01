@@ -1,5 +1,4 @@
 import Photo from '../models/photo_model.js';
-import { getPhotoProperties } from '../controllers/photo_properties_controller.js'
 
 /* 
  * Create a photo object
@@ -7,15 +6,29 @@ import { getPhotoProperties } from '../controllers/photo_properties_controller.j
 */
 export async function createPhoto(photoFields) {
   try {
+    const photoProperties = photoFields.photoProperties.map(property => ({
+      name: property.name,
+      property: property.property,
+      value: property.value,
+      range: {
+        min: property.range.min,
+        max: property.range.max
+      },
+      unit: property.unit
+    }));
+
     const newPhoto = new Photo();
     newPhoto.imageUrl = photoFields.imageUrl;
-    newPhoto.photoProperties = await getPhotoProperties(photoFields.photoProperties);
+    newPhoto.photoProperties = photoProperties
+    
+    
     const photo = await newPhoto.save();
     return photo;
   } catch (error) {
     throw new Error(`Create Photo error: ${error}`);
   }
 }
+
 
 /* 
  * Get all photos

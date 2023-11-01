@@ -2,25 +2,17 @@ import PhotoProperties from "../models/photo_properties_model.js";
 
 // Initialize photo properties
 export async function initializePhotoProperties(pageFields) {
-  const photo = new PhotoProperties();
   
-  photo.exposure = pageFields.exposure;
-  photo.contrast = pageFields.contrast;
-  photo.highlights = pageFields.highlights;
-  photo.shadows = pageFields.shadows;
-  photo.whites = pageFields.whites;
-  photo.blacks = pageFields.blacks;
-  photo.tint = pageFields.tint;
-  photo.temperature = pageFields.temperature;
-  photo.saturation = pageFields.saturation;
-  photo.vibrance = pageFields.vibrance;
-  photo.brightness = pageFields.brightness;
-  photo.grayscale = pageFields.grayscale;
-  photo.sepia = pageFields.sepia;
-  photo.hueRotate = pageFields.hueRotate;
-  photo.blur = pageFields.blur;
+  const property = new PhotoProperties();
+  property.name = pageFields.name;
+  property.property = pageFields.property;
+  property.value = pageFields.value;
+  property.range.min = pageFields.range.min;
+  property.range.max = pageFields.range.max;
+  property.unit = pageFields.unit;
+
   try {
-    const savedPhotoProperties = await photo.save();
+    const savedPhotoProperties = await property.save();
     return savedPhotoProperties;
   
   } catch (error) {
@@ -68,3 +60,18 @@ export async function deletePhotoProperties(id) {
   }
 }
   
+
+
+
+
+export async function getPhotoPropertiesById(propertyIds) {
+  try {
+    // Fetch PhotoProperties by their IDs
+    const photoProperties = await PhotoProperties.find({ _id: { $in: propertyIds } });
+
+    // Extract and return only the IDs of the fetched PhotoProperties
+    return photoProperties.map(property => property._id);
+  } catch (error) {
+    throw new Error(`Get PhotoProperties by ID error: ${error}`);
+  }
+}
