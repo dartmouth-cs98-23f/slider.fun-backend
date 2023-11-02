@@ -12,9 +12,9 @@
 | Route | HTTP Request | Module | Description | Note |
 | -------- | -------- | -------- | -------- | -------- |
 |https://slider-fun.onrender.com/api/photo/all | get | photoRoutes | get all photos
-|https://slider-fun.onrender.com/api/photo/new | post | photoRoutes | create photo
-|https://slider-fun.onrender.com/api/photo/addProperty/:id | put | photoRoutes | add a new property to the list of photoProperties | Please provide the new property exactly how you want to have it added to the list
-|https://slider-fun.onrender.com/api/photo/removeProperty/:id | delete | photoRoutes | delete a property from the list of photoProperties | Please only provide the property name for this request. For example, to delete the Satruation property, the request would look like `"property" : "Saturation"`
+|https://slider-fun.onrender.com/api/photo/new | post | photoRoutes | create photo | [Example Call](../documentation/createPhoto.md)
+|https://slider-fun.onrender.com/api/photo/addProperty/:id | put | photoRoutes | add a new property to the list of photoProperties | Please provide the new property exactly how you want to have it added to the list. [Example Call](../documentation/addPhotoProperty.md)
+|https://slider-fun.onrender.com/api/photo/removeProperty/:id | delete | photoRoutes | delete a property from the list of photoProperties | Please only provide the property name for this request. For example, to delete the Satruation property, the request would look like `"property" : "Saturation"`. [Example Call](../documentation/removePhotoProperty.md)
 |https://slider-fun.onrender.com/api/photo/:id | put | photoRoutes | update photo by id | Either can replace `imageUrl` or `photoProperties` as a whole. Please make sure you understand the difference bewtween this call and the `removeProperty/:id` call before updating anything. 
 |https://slider-fun.onrender.com/api/photo/:id | get | photoRoutes | get photo by id |
 |https://slider-fun.onrender.com/api/photo/:id | delete | photoRoutes | delete photo by id
