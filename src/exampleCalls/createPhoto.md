@@ -1,4 +1,4 @@
-###EXAMPLE CALL FOR CREATING A PHOTO
+### EXAMPLE CALL FOR CREATING A PHOTO
 
 URL to use: `https://slider-fun.onrender.com/api/photo/new`
 

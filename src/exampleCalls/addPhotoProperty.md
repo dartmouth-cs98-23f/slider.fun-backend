@@ -1,4 +1,4 @@
-###EXAMPLE ADDING A NEW PROPERTY TO PHOTO
+### EXAMPLE ADDING A NEW PROPERTY TO PHOTO
 
 URL to use: `https://slider-fun.onrender.com/api/photo/addProperty/:id`
 
