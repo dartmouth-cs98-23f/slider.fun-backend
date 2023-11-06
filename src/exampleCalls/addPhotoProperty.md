@@ -12,6 +12,7 @@ URL to use: `https://slider-fun.onrender.com/api/photo/addProperty/:id`
     "max": 100
     },
     "unit": "%"
+    "status": true
 }
 ```
 

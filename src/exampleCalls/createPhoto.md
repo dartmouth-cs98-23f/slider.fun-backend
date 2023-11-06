@@ -14,7 +14,8 @@ URL to use: `https://slider-fun.onrender.com/api/photo/new`
 				"min": 0,
 				"max": 200
 			},
-			"unit": "%"
+			"unit": "%",
+			"status": true
 		},
 		{
 			"name": "Contrast",
@@ -24,7 +25,8 @@ URL to use: `https://slider-fun.onrender.com/api/photo/new`
 				"min": 0,
 				"max": 200
 			},
-			"unit": "%"
+			"unit": "%",
+			"status": true
 		},
 		{
 			"name": "Saturation",
@@ -34,7 +36,8 @@ URL to use: `https://slider-fun.onrender.com/api/photo/new`
 				"min": 0,
 				"max": 200
 			},
-			"unit": "%"
+			"unit": "%",
+			"status": true
 		},
 		{
 			"name": "Grayscale",
@@ -44,7 +47,8 @@ URL to use: `https://slider-fun.onrender.com/api/photo/new`
 				"min": 0,
 				"max": 100
 			},
-			"unit": "%"
+			"unit": "%",
+			"status": true
 		},
 		{
 			"name": "Sepia",
@@ -54,7 +58,8 @@ URL to use: `https://slider-fun.onrender.com/api/photo/new`
 				"min": 0,
 				"max": 100
 			},
-			"unit": "%"
+			"unit": "%",
+			"status": true
 		},
 		{
 			"name": "Hue Rotate",
@@ -64,7 +69,8 @@ URL to use: `https://slider-fun.onrender.com/api/photo/new`
 				"min": 0,
 				"max": 360
 			},
-			"unit": "deg"
+			"unit": "deg",
+			"status": true
 		},
 		{
 			"name": "Blur",
@@ -74,7 +80,8 @@ URL to use: `https://slider-fun.onrender.com/api/photo/new`
 				"min": 0,
 				"max": 20
 			},
-			"unit": "px"
+			"unit": "px",
+			"status": true
 		}
   ]
 }
