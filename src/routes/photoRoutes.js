@@ -7,15 +7,7 @@ router.get('/', (req, res) => {
     res.json({ message: 'Welcome to our photo router!' });
 });
 
-router.get('/all', async (req, res) => {
-    try {
-        const result = await Photo.getAllPhotos();
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ error });
-    }
-});
-
+// CREATE NEW PHOTO
 router.post('/new', async (req, res) => {
     try {
         const result = await Photo.createPhoto(req.body);
@@ -25,6 +17,17 @@ router.post('/new', async (req, res) => {
     }
 });
 
+// GET ALL PHOTOS
+router.get('/all', async (req, res) => {
+    try {
+        const result = await Photo.getAllPhotos();
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+});
+
+// ADD A PROPERTY TO A PHOTO'S PROPERTIES LIST
 router.put('/addProperty/:id', async (req, res) => {
     try {
         const result = await Photo.addProperty(req.params.id, req.body);
@@ -34,6 +37,7 @@ router.put('/addProperty/:id', async (req, res) => {
     }
 });
 
+// REMOVE A PROPERTY FROM A PHOTO'S PROPERTIES LIST
 router.delete('/removeProperty/:id', async (req, res) => {
     try {
         const result = await Photo.removeProperty(req.params.id, req.body);
@@ -43,6 +47,7 @@ router.delete('/removeProperty/:id', async (req, res) => {
     }
 });
 
+// UPDATE A PHOTO FIELD
 router.put('/:id', async (req, res) => {
     try {
         const result = await Photo.updatePhoto(req.params.id, req.body);
@@ -52,6 +57,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+// GET A PHOTO BY ID
 router.get('/:id', async (req, res) => {
     try {
         const result = await Photo.getPhotoById(req.params.id, req.body);
@@ -61,6 +67,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// DELETE A PHOTO BY ID
 router.delete('/:id', async (req, res) => {
     try {
         const result = await Photo.deletePhoto(req.params.id);

@@ -50,7 +50,7 @@ export async function getLevelByNumber(levelNum) {
 }
 
 
-// Get All levels
+// Get all levels
 export async function getAllLevels() {
   try {
     const allPosts = await Level.find({}).sort([['date', -1]]);

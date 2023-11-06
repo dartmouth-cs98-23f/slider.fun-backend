@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import photoRoutes from './routes/photoRoutes.js';
 import levelRoutes from './routes/levelRoutes.js';
+import statRoutes from './routes/statisticsRoutes.js';
 
 
 // initialize
@@ -40,6 +41,7 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use('/api/users', userRoutes);
 app.use('/api/photo', photoRoutes);
 app.use('/api/levels', levelRoutes); 
+app.use('/api/stats', statRoutes); 
 
 // default index route
 app.get('/', (req, res) => {
