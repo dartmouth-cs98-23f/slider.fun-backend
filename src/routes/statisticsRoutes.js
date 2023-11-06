@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
     res.json({ message: 'Welcome to our Stats router!' });
 });
 
+// CREATE NEW STAT
 router.post('/new', async (req, res) => {
     try {
       const result = await Stats.createStats(req.body);
@@ -16,6 +17,7 @@ router.post('/new', async (req, res) => {
     }
 });
 
+// GET ALL STATS
 router.get('/all', async (req, res) => {
     try {
       const result = await Stats.getAllStats();
@@ -25,7 +27,7 @@ router.get('/all', async (req, res) => {
     }
 });
 
-
+// UPDATE THE MEANS OF A STAT
 router.put('/:id', async (req, res) => {
     try {
       const result = await Stats.updateMeans(req.params.id, req.body);
@@ -35,6 +37,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+// GET STAT BY ID
 router.get('/:id', async (req, res) => {
     try {
       const result = await Stats.getStatById(req.params.id, req.body);
@@ -44,6 +47,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// DELETE A STAT
 router.delete('/:id', async (req, res) => {
     try {
       const result = await Stats.deleteStat(req.params.id);

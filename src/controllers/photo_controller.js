@@ -1,9 +1,6 @@
 import Photo from '../models/photo_model.js';
 
-/* 
- * Create a photo object
- * Takes in as a parameter a Photo Object
-*/
+// Create Photo
 export async function createPhoto(photoFields) {
   try {
     const photoProperties = photoFields.photoProperties.map(property => ({
@@ -31,11 +28,7 @@ export async function createPhoto(photoFields) {
 }
 
 
-/* 
- * Get all photos
- * Function details:
- *     - gets a list of all the photos
-*/
+// Get all photos
 export async function getAllPhotos() {
   try {
     const photos = await Photo.find({}).sort([['date', -1]]);
@@ -45,12 +38,7 @@ export async function getAllPhotos() {
   }
 }
 
-/* 
- * Delete a Photo by ID
- * Function details:
- *     - deletes a specific photo by its ID 
- *     - takes the photo id as a parameter
-*/
+// Delete a Photo by ID
 export async function deletePhoto(id) {
   try {
     const deletedPhoto = await Photo.deleteOne({_id: id});
@@ -60,12 +48,8 @@ export async function deletePhoto(id) {
   }
 }
 
-/* 
- * Update a Photo by ID
- * Function details:
- *     - updates a specific photo by its ID 
- *     - takes the photo id as a parameter
-*/
+
+// Update a Photo field by ID
 export async function updatePhoto(id, updateFields) {
   try {
     const updatedPhoto = await Photo.findByIdAndUpdate(id, updateFields);
@@ -75,6 +59,7 @@ export async function updatePhoto(id, updateFields) {
   }
 }
 
+// Add a property to Photo Properties
 export async function addProperty(id, updateFields) {
   try {
     const photo = await Photo.findById(id);
@@ -96,6 +81,7 @@ export async function addProperty(id, updateFields) {
   }
 }
 
+// Remove a property from Photo Properties1
 export async function removeProperty(id, updateFields) {
   try {
     const photo = await Photo.findById(id);
@@ -111,11 +97,7 @@ export async function removeProperty(id, updateFields) {
 }
 
 
-/* 
- * Gets a Photo by ID
- * Function details:
- *     - takes the photo id as a parameter
-*/
+// Gets a Photo by ID
 export async function getPhotoById(id) {
   try {
     const photo = await Photo.findById(id);

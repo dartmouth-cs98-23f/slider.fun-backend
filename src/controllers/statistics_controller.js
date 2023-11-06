@@ -1,6 +1,7 @@
 import Statistics from '../models/statistics_model.js';
 
 
+// Create Stats
 export async function createStats(data) {
 
   try {
@@ -21,6 +22,7 @@ export async function createStats(data) {
   }
 }
 
+// Get all stats
 export async function getAllStats() {
   try {
     const stats = await Statistics.find({}).sort([['date', -1]]);
@@ -30,6 +32,7 @@ export async function getAllStats() {
   }
 }
 
+// Delete a stat by ID
 export async function deleteStat(id) {
   try {
     const deletedStat = await Statistics.deleteOne({_id: id});
@@ -39,6 +42,7 @@ export async function deleteStat(id) {
   }
 }
 
+// Update the means for a stat
 export async function updateMeans(id, updateFields) {
     try {
       const statistics = await Statistics.findById(id);
@@ -74,6 +78,7 @@ export async function updateMeans(id, updateFields) {
     }
   }
 
+// Get Stat by ID
 export async function getStatById(id) {
     try {
       const stat = await Statistics.findById(id);
@@ -81,8 +86,9 @@ export async function getStatById(id) {
     } catch (error) {
       throw new Error(`Get Stat by ID error: ${error}`);
     }
-  }
+}
 
+// Get Stat by stage name
 export async function getStatByStage(stage) {
   try {
     const statistics = await Statistics.findOne({ stage: stage });

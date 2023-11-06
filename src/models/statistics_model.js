@@ -9,7 +9,6 @@ const StatisticsSchema = new Schema({
             value: { type: Number, required: true },
         }
     ]
-
 },{
     toObject: { virtuals: true },
     toJSON: { virtuals: true }
