@@ -12,6 +12,7 @@ const PhotoSchema = new Schema({
                 max: { type: Number, required: true },
             },
             unit: { type: String, required: true },
+            status: { type: Boolean, required: true }
         }
     ]
 

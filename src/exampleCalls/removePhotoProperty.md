@@ -1,4 +1,4 @@
-### EXAMPLE REMOVE A PROPERTY FROM PHOTO PROPERTIES
+### EXAMPLE REMOVING A PROPERTY FROM PHOTO PROPERTIES
 
 URL to use: `https://slider-fun.onrender.com/api/photo/removeProperty/:id`
 

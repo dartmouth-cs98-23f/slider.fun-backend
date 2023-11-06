@@ -14,7 +14,8 @@ export async function createPhoto(photoFields) {
         min: property.range.min,
         max: property.range.max
       },
-      unit: property.unit
+      unit: property.unit,
+      status: property.status
     }));
 
     const newPhoto = new Photo();
