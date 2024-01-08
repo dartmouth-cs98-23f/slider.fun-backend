@@ -35,8 +35,6 @@ export async function getUser(id) {
   }
 }
 
-/// HOW TO UPDATE MORE THEAN ONE FIELDDDD BRUHHHH
-// ^LIKE WHAT WILL updateFields LOOK LIKE. NEED TO KNOW BEFORE I DO THIS
 export async function updateUser(id, updateFields) {
   try {
     const user = await User.findByIdAndUpdate(id, updateFields);
@@ -47,10 +45,25 @@ export async function updateUser(id, updateFields) {
   }
 }
 
-export const signin = (user) => {
-  // WHAT DO WE DO HERERERERERERERERERERE ************************
-  // FOR TERM 2 (maybe?)
-};
+export const signin = async ({
+  email, password, userName
+}) => {
+  if (!email || !password) {
+    throw new Error('You must provide email and password');
+  }
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) {
+    throw new Error('Invalid credentials');
+  }
+  
+  return tokenForUser(user);
+}
 
 export const signup = async ({
   email, password, name, userName, level
