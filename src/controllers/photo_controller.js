@@ -1,15 +1,25 @@
 import Photo from '../models/photo_model.js';
-import { getPhotoProperties } from '../controllers/photo_properties_controller.js'
 
-/* 
- * Create a photo object
- * Takes in as a parameter a Photo Object
-*/
+// Create Photo
 export async function createPhoto(photoFields) {
   try {
+    const photoProperties = photoFields.photoProperties.map(property => ({
+      name: property.name,
+      property: property.property,
+      value: property.value,
+      range: {
+        min: property.range.min,
+        max: property.range.max
+      },
+      unit: property.unit,
+      status: property.status
+    }));
+
     const newPhoto = new Photo();
     newPhoto.imageUrl = photoFields.imageUrl;
-    newPhoto.photoProperties = await getPhotoProperties(photoFields.photoProperties);
+    newPhoto.photoProperties = photoProperties
+    
+    
     const photo = await newPhoto.save();
     return photo;
   } catch (error) {
@@ -17,11 +27,8 @@ export async function createPhoto(photoFields) {
   }
 }
 
-/* 
- * Get all photos
- * Function details:
- *     - gets a list of all the photos
-*/
+
+// Get all photos
 export async function getAllPhotos() {
   try {
     const photos = await Photo.find({}).sort([['date', -1]]);
@@ -31,12 +38,7 @@ export async function getAllPhotos() {
   }
 }
 
-/* 
- * Delete a Photo by ID
- * Function details:
- *     - deletes a specific photo by its ID 
- *     - takes the photo id as a parameter
-*/
+// Delete a Photo by ID
 export async function deletePhoto(id) {
   try {
     const deletedPhoto = await Photo.deleteOne({_id: id});
@@ -46,12 +48,8 @@ export async function deletePhoto(id) {
   }
 }
 
-/* 
- * Update a Photo by ID
- * Function details:
- *     - updates a specific photo by its ID 
- *     - takes the photo id as a parameter
-*/
+
+// Update a Photo field by ID
 export async function updatePhoto(id, updateFields) {
   try {
     const updatedPhoto = await Photo.findByIdAndUpdate(id, updateFields);
@@ -61,11 +59,45 @@ export async function updatePhoto(id, updateFields) {
   }
 }
 
-/* 
- * Gets a Photo by ID
- * Function details:
- *     - takes the photo id as a parameter
-*/
+// Add a property to Photo Properties
+export async function addProperty(id, updateFields) {
+  try {
+    const photo = await Photo.findById(id);
+    const newProperty = {
+      name: updateFields.name,
+      property: updateFields.property,
+      value: updateFields.value,
+      range: {
+        min: updateFields.range.min,
+        max: updateFields.range.max
+      },
+      unit: updateFields.unit
+    };
+    photo.photoProperties.push(newProperty);
+    const updatedPhoto = await photo.save();
+    return updatedPhoto;
+  } catch (error) {
+    throw new Error(`Get Photo by ID error: ${error}`);
+  }
+}
+
+// Remove a property from Photo Properties1
+export async function removeProperty(id, updateFields) {
+  try {
+    const photo = await Photo.findById(id);
+    const propertyToRemove = updateFields.property;
+    
+    photo.photoProperties = photo.photoProperties.filter(property => property.name !== propertyToRemove);
+
+    const updatedPhoto = await photo.save();
+    return updatedPhoto;
+  } catch (error) {
+    throw new Error(`Get Photo by ID error: ${error}`);
+  }
+}
+
+
+// Gets a Photo by ID
 export async function getPhotoById(id) {
   try {
     const photo = await Photo.findById(id);
@@ -74,3 +106,4 @@ export async function getPhotoById(id) {
     throw new Error(`Get Photo by ID error: ${error}`);
   }
 }
+

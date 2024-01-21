@@ -8,14 +8,14 @@ router.get('/', (req, res) => {
   res.json({ message: 'welcome to our user router!' });
 });
 
-// router.post('/signin', async (req, res) => {
-//   try {
-//     const token = Users.signin(req.user);
-//     res.json({ token, email: req.user.email });
-//   } catch (error) {
-//     res.status(422).send({ error: error.toString() });
-//   }
-// });
+router.post('/signin', async (req, res) => {
+  try {
+    const token = await Users.signin(req.body);
+    res.json({ token, email: req.email });
+  } catch (error) {
+    res.status(422).send({ error: error.toString() });
+  }
+});
 
 // Create User
 router.post('/new', async (req, res) => {

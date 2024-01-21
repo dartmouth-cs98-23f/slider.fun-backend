@@ -8,9 +8,6 @@ const userSchema = new Schema(
     password: String,
     userName: String,
     level: { type: Schema.Types.ObjectId, ref: 'Level' },
-
-    /* Johan needs to finish photo mode, controller, and routing before we can add here */
-    // photo:
   },
   {
     toObject: { virtuals: true },
