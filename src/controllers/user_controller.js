@@ -61,7 +61,7 @@ export const signin = async ({
   if (!isMatch) {
     throw new Error('Invalid credentials');
   }
-  
+
   return tokenForUser(user);
 }
 
@@ -78,7 +78,7 @@ export const signup = async ({
   }
 
   const user = new User();
-  
+
   user.email = email;
   user.name = name;
   user.password = password;
@@ -86,10 +86,24 @@ export const signup = async ({
   user.level = await getLevel(level);
 
   await user.save();
+
   return tokenForUser(user);
 };
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp }, process.env.AUTH_SECRET);
+  const token = jwt.encode({ sub: user.id, iat: timestamp }, process.env.AUTH_SECRET);
+  return token
+}
+
+// decodes the token and gets the userID from it and returns the user
+export async function getUserFromToken(token) {
+  try {
+    const decoded = jwt.decode(token, process.env.AUTH_SECRET);
+    const userId = decoded.sub;
+    const user = await User.findById(userId);
+    return user;
+  } catch (error) {
+    throw new Error(`Error getting user from token: ${error}`);
+  }
 }
