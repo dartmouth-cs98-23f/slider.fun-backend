@@ -7,6 +7,8 @@ const userSchema = new Schema(
     email: { type: String, unique: true, lowercase: true },
     password: String,
     userName: String,
+    about: String,
+    sliderScore: Number,
     level: { type: Schema.Types.ObjectId, ref: 'Level' },
     dailyPuzzles: [{ type: Schema.Types.ObjectId, ref: 'UserPuzzleData' }]
   },

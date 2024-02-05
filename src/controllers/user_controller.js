@@ -35,6 +35,7 @@ export async function getUser(id) {
   }
 }
 
+// update user fields
 export async function updateUser(id, updateFields) {
   try {
     const user = await User.findByIdAndUpdate(id, updateFields);
@@ -45,6 +46,7 @@ export async function updateUser(id, updateFields) {
   }
 }
 
+// add a puzzle data object to user
 export async function addPuzzleData(id, puzzleDataId) {
   try {
     const user = await User.findById(id);
@@ -56,6 +58,7 @@ export async function addPuzzleData(id, puzzleDataId) {
   }
 }
 
+// Remove a puzzle data object from user
 export async function removePuzzleData(id, puzzleDataId) {
   try {
     const user = await User.findById(id);
@@ -89,7 +92,7 @@ export const signin = async ({
 }
 
 export const signup = async ({
-  email, password, name, userName, level
+  email, password, name, userName, level, about
 }) => {
   if (!email || !password) {
     throw new Error('You must provide email and password');
@@ -108,6 +111,8 @@ export const signup = async ({
   user.userName = userName;
   user.level = await getLevel(level);
   user.dailyPuzzles = [];
+  user.sliderScore = 0;
+  user.about = about;
 
   await user.save();
 
