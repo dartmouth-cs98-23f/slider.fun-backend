@@ -51,6 +51,7 @@ router.get('/all', async (req, res) => {
   }
 });
 
+
 router.get('/:id', async (req, res) => {
   try {
     const result = await Users.getUser(req.params.id);
@@ -63,6 +64,16 @@ router.get('/:id', async (req, res) => {
 router.put('/addPuzzleData/:id', async (req, res) => {
   try {
     await Users.addPuzzleData(req.params.id, req.body.puzzleDataId);
+    const result = await Users.getUser(req.params.id);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+router.put('/removePuzzleData/:id', async (req, res) => {
+  try {
+    await Users.removePuzzleData(req.params.id, req.body.puzzleDataId);
     const result = await Users.getUser(req.params.id);
     res.json(result);
   } catch (error) {

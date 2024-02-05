@@ -60,10 +60,8 @@ export async function removePuzzleData(id, puzzleDataId) {
   try {
     const user = await User.findById(id);
     if (!user) throw new Error('User not found');
-
     user.dailyPuzzles = user.dailyPuzzles.filter(puzzleId => puzzleId.toString() !== puzzleDataId);
     await user.save();
-
     return user;
   } catch (error) {
     throw new Error(`Update user error: ${error}`);
