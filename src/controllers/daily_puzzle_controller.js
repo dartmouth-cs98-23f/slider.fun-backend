@@ -5,13 +5,17 @@ import { getPhotoById } from './photo_controller.js';
 export async function createDailyPuzzle(puzzleFields) {
 
   const existingPuzzle = await DailyPuzzle.findOne({ date: puzzleFields.date });
-  
   if (existingPuzzle) {
     throw new Error(`A puzzle for ${puzzleFields.date} already exists.`);
   }
 
+  const photoReturned= await getPhotoById(puzzleFields.photo);
+  if (!photoReturned) {
+    throw new Error(`A Photo for ID ${puzzleFields.photo} was not found.`);
+  }
+
   const dailyPuzzle = new DailyPuzzle();
-  dailyPuzzle.photo = await getPhotoById(puzzleFields.photo);
+  dailyPuzzle.photo = photoReturned
   dailyPuzzle.date = puzzleFields.date
   
   try {
@@ -36,9 +40,9 @@ export async function getDailyPuzzleByID(id) {
 export async function getDailyPuzzleByDate(inputFields) {
   try {
     const returnDailyPuzzle = await DailyPuzzle.findOne({ date: inputFields.date });
-  
+
     if (!returnDailyPuzzle) {
-      throw new Error(`A puzzle for ${puzzleFields.date} already exists.`);
+      throw new Error(`A daily puzzle for date ${puzzleFields.date} doesn't exists.`);
     }
     return returnDailyPuzzle;
 

@@ -4,7 +4,7 @@ import { getDailyPuzzleByID } from "./daily_puzzle_controller.js"
 // Create User Puzzle Data
 export async function createUserPuzzleData(fields) {
   const puzzleData = new UserPuzzleData();
-  dailyPuzzleReturned = await getDailyPuzzleByID(fields.dailyPuzzle);
+  const dailyPuzzleReturned = await getDailyPuzzleByID(fields.dailyPuzzle);
 
   if (!dailyPuzzleReturned) {
     throw new Error(`Daily puzzle for ID ${fields.dailyPuzzle} was not found`);
