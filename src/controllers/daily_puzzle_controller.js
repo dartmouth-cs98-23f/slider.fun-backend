@@ -3,22 +3,27 @@ import { getPhotoById } from './photo_controller.js';
 
 // Create  Daily Puzzle
 export async function createDailyPuzzle(puzzleFields) {
+
+  const existingPuzzle = await DailyPuzzle.findOne({ date: puzzleFields.date });
+  
+  if (existingPuzzle) {
+    throw new Error(`A puzzle for ${puzzleFields.date} already exists.`);
+  }
+
   const dailyPuzzle = new DailyPuzzle();
   dailyPuzzle.photo = await getPhotoById(puzzleFields.photo);
-  dailyPuzzle.date = new Date();
+  dailyPuzzle.date = puzzleFields.date
   
   try {
-        
     const savedDailyPuzzle = await dailyPuzzle.save();
     return savedDailyPuzzle;
-
   } catch (error) {
     throw new Error(`Create Daily Puzzle error: ${error}`);
   }
 }
   
 // Get Daily Puzzle with the given id
-export async function getDailyPuzzle(id) {
+export async function getDailyPuzzleByID(id) {
   try {
     const returnDailyPuzzle = await DailyPuzzle.findById(id);
     return returnDailyPuzzle;
@@ -27,6 +32,20 @@ export async function getDailyPuzzle(id) {
   }
 }
 
+// Get Daily Puzzle by the date
+export async function getDailyPuzzleByDate(inputFields) {
+  try {
+    const returnDailyPuzzle = await DailyPuzzle.findOne({ date: inputFields.date });
+  
+    if (!returnDailyPuzzle) {
+      throw new Error(`A puzzle for ${puzzleFields.date} already exists.`);
+    }
+    return returnDailyPuzzle;
+
+  } catch (error) {
+    throw new Error(`Get Daily Puzzle error: ${error}`);
+  }
+}
 
 // Get All Daily Puzzles
 export async function getAllDailyPuzzles() {

@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const DailyPuzzleSchema = new Schema({
     photo: { type: Schema.Types.ObjectId, ref: 'Photo' },
-    date: { type: Date, default: Date.now }
+    date: String
 },{
     toObject: { virtuals: true },
     toJSON: { virtuals: true }
