@@ -17,6 +17,8 @@ router.post('/new', async (req, res) => {
     }
 });
 
+
+
 // GET All DAILY PUZZLES
 router.get('/all', async (req, res) => {
     try {
@@ -30,11 +32,21 @@ router.get('/all', async (req, res) => {
 // GET DAILY PUZZLE BY ID
 router.get('/:id', async (req, res) => {
     try {
-      const result = await DailyPuzzle.getDailyPuzzle(req.params.id);
+      const result = await DailyPuzzle.getDailyPuzzleByID(req.params.id);
       res.json(result);
     } catch (error) {
       res.status(500).json({ error });
     }
+});
+
+// GET DAILY PUZZLE BY DATE
+router.get('/byDate', async (req, res) => {
+  try {
+    const result = await DailyPuzzle.getDailyPuzzleByDate(req.body);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 });
 
 // UPDATE DAILY PUZZLE
