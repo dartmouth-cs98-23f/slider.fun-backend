@@ -1,10 +1,10 @@
 import UserPuzzleData from "../models/user_puzzle_data_model.js";
-import { getDailyPuzzle } from "./daily_puzzle_controller.js"
+import { getDailyPuzzleByID } from "./daily_puzzle_controller.js"
 
 // Create User Puzzle Data
 export async function createUserPuzzleData(fields) {
   const puzzleData = new UserPuzzleData();
-  puzzleData.dailyPuzzle = await getDailyPuzzle(fields.dailyPuzzle);
+  puzzleData.dailyPuzzle = await getDailyPuzzleByID(fields.dailyPuzzle);
   puzzleData.score = fields.score;
 
   const userSelectedProperties = fields.userSelectedProperties.map(property => ({
