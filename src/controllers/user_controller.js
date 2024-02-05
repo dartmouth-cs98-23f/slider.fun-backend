@@ -38,6 +38,31 @@ export async function getUser(id) {
 export async function updateUser(id, updateFields) {
   try {
     const user = await User.findByIdAndUpdate(id, updateFields);
+    await user.save();
+    return user;
+  } catch (error) {
+    throw new Error(`Update user error: ${error}`);
+  }
+}
+
+export async function addPuzzleData(id, puzzleDataId) {
+  try {
+    const user = await User.findById(id);
+    user.dailyPuzzles.push(puzzleDataId)
+    await user.save();
+    return user;
+  } catch (error) {
+    throw new Error(`Update user error: ${error}`);
+  }
+}
+
+export async function removePuzzleData(id, puzzleDataId) {
+  try {
+    const user = await User.findById(id);
+    if (!user) throw new Error('User not found');
+
+    user.dailyPuzzles = user.dailyPuzzles.filter(puzzleId => puzzleId.toString() !== puzzleDataId);
+    await user.save();
 
     return user;
   } catch (error) {
@@ -84,6 +109,7 @@ export const signup = async ({
   user.password = password;
   user.userName = userName;
   user.level = await getLevel(level);
+  user.dailyPuzzles = [];
 
   await user.save();
 

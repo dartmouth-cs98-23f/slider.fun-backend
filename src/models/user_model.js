@@ -8,6 +8,7 @@ const userSchema = new Schema(
     password: String,
     userName: String,
     level: { type: Schema.Types.ObjectId, ref: 'Level' },
+    dailyPuzzles: [{ type: Schema.Types.ObjectId, ref: 'UserPuzzleData' }]
   },
   {
     toObject: { virtuals: true },
@@ -32,7 +33,7 @@ userSchema.pre('save', async function beforeyYourModelSave(next) {
   }
 });
 
-// note use of named function rather than arrow notation, required here
+// use of named function rather than arrow notation, required here
 userSchema.methods.comparePassword = async function comparePassword(candidatePassword) {
   const comparison = await bcrypt.compare(candidatePassword, this.password);
   return comparison;
