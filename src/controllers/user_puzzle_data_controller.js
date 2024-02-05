@@ -4,8 +4,11 @@ import { getDailyPuzzleByID } from "./daily_puzzle_controller.js"
 // Create User Puzzle Data
 export async function createUserPuzzleData(fields) {
   const puzzleData = new UserPuzzleData();
-  puzzleData.dailyPuzzle = await getDailyPuzzleByID(fields.dailyPuzzle);
-  puzzleData.score = fields.score;
+  dailyPuzzleReturned = await getDailyPuzzleByID(fields.dailyPuzzle);
+
+  if (!dailyPuzzleReturned) {
+    throw new Error(`Daily puzzle for ID ${fields.dailyPuzzle} was not found`);
+  }
 
   const userSelectedProperties = fields.userSelectedProperties.map(property => ({
     name: property.name,
@@ -19,9 +22,10 @@ export async function createUserPuzzleData(fields) {
     status: property.status
   }));
 
+  puzzleData.dailyPuzzle = dailyPuzzleReturned
+  puzzleData.score = fields.score;
   puzzleData.userSelectedProperties = userSelectedProperties;
 
-  
   try {
     const savedPuzzleData = await puzzleData.save();
     return savedPuzzleData;
