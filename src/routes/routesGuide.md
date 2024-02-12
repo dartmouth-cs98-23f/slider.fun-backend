@@ -11,6 +11,7 @@
 |https://slider-fun.onrender.com/api/users/addPuzzleData/:id | put| userRoutes | add a user puzzle data object to the user |
 |https://slider-fun.onrender.com/api/users/removePuzzleData/:id | put| userRoutes | remove a user puzzle data object from the user |
 |https://slider-fun.onrender.com/api/users/:id | delete | userRoutes | delete user by id |
+
 #### Photo Routes
 | Route | HTTP Request | Module | Description | Note |
 | -------- | -------- | -------- | -------- | -------- |
@@ -22,3 +23,21 @@
 |https://slider-fun.onrender.com/api/photo/:id | put | photoRoutes | update photo by id | Either can replace `imageUrl` or `photoProperties` as a whole. Please make sure you understand the difference bewtween this call and the `removeProperty/:id`/`addProperty/:id` calls before updating anything |
 |https://slider-fun.onrender.com/api/photo/:id | delete | photoRoutes | delete photo by id |
 
+#### Daily Puzzle Routes
+| Route | HTTP Request | Module | Description | Note |
+| -------- | -------- | -------- | -------- | -------- |
+|https://slider-fun.onrender.com/api/dailyPuzzle/new | post | dailyPuzzle | create a new daily puzzle object |
+|https://slider-fun.onrender.com/api/dailyPuzzle/all | get | dailyPuzzle | get all daily puzzle objects |
+|https://slider-fun.onrender.com/api/dailyPuzzle/byDate | get | dailyPuzzle | get daily puzzle for the give date | The request field should look something like this `{"date" : "2024-01-30"}` ! |
+|https://slider-fun.onrender.com/api/dailyPuzzle/:id | get | dailyPuzzle | get daily puzzle for the give id |
+|https://slider-fun.onrender.com/api/dailyPuzzle/:id | put | dailyPuzzle | update daily puzzle fields |
+|https://slider-fun.onrender.com/api/dailyPuzzle/:id | delete | dailyPuzzle | delete the daily puzzle object for the given id |
+
+#### User Puzzle Data Routes
+| Route | HTTP Request | Module | Description | Note |
+| -------- | -------- | -------- | -------- | -------- |
+|https://slider-fun.onrender.com/api/userPuzzleData/new | post | userPuzzleData | create a new puzzle data object |
+|https://slider-fun.onrender.com/api/userPuzzleData/all | get | userPuzzleData | get all puzzle data objects |
+|https://slider-fun.onrender.com/api/userPuzzleData/:id | get | userPuzzleData | get puzzle data object for the give id |
+|https://slider-fun.onrender.com/api/userPuzzleData/:id | put | userPuzzleData | update puzzle data object for the give id and fields |
+|https://slider-fun.onrender.com/api/dailyPuzzle/:id | delete | userPuzzleData | delete the puzzle data object for the given id |
