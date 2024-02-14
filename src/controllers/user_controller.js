@@ -2,7 +2,7 @@ import jwt from 'jwt-simple';
 import dotenv from 'dotenv';
 import User from '../models/user_model.js';
 import { getLevel } from './level_controller.js';
-import { deletePhoto } from './photo_controller.js'
+import { deletePhoto, getPhotoById } from './photo_controller.js'
 
 dotenv.config({ silent: true });
 
@@ -49,16 +49,22 @@ export async function updateUser(id, updateFields) {
 // add a photo object to user
 export async function addPhoto(id, photoId) {
   try {
-
-    const user = await User.findById(id);
-    if (user.photos === undefined ){
-      user.photos = []
+    const user = await getUser(id);
+    
+    if (!user.photos){
+      user.photos = [];
     }
 
-    user.photos.push(photoId)
+    try {
+      await getPhotoById(photoId);
+    } catch (error) {
+      throw new Error(`Error retrieving photo for the given photoID: ${error}`);
+    }
 
+    user.photos.push(photoId);
     await user.save();
     return user;
+
   } catch (error) {
     throw new Error(`Update user error: ${error}`);
   }
@@ -69,15 +75,14 @@ export async function removePhoto(id, photoId) {
   try {
 
     // delete photo object from user
-    const user = await User.findById(id);
-    if (!user) throw new Error('User not found');
-    user.photos = user.photos.filter(id => id.toString() !== photoId);
+    const user = await getUser(id);
+    user.photos = user.photos.filter(photo_id => photo_id.toString() !== photoId);
     await user.save();
 
     // delete photo object from database
     await deletePhoto(photoId);
-
     return user;
+
   } catch (error) {
     throw new Error(`Update user error: ${error}`);
   }
@@ -86,7 +91,7 @@ export async function removePhoto(id, photoId) {
 // add a puzzle data object to user
 export async function addPuzzleData(id, puzzleDataId) {
   try {
-    const user = await User.findById(id);
+    const user = await getUser(id);
     user.dailyPuzzles.push(puzzleDataId)
     await user.save();
     return user;
@@ -98,8 +103,7 @@ export async function addPuzzleData(id, puzzleDataId) {
 // Remove a puzzle data object from user
 export async function removePuzzleData(id, puzzleDataId) {
   try {
-    const user = await User.findById(id);
-    if (!user) throw new Error('User not found');
+    const user = await getUser(id);
     user.dailyPuzzles = user.dailyPuzzles.filter(puzzleId => puzzleId.toString() !== puzzleDataId);
     await user.save();
     return user;

@@ -106,4 +106,3 @@ export async function getPhotoById(id) {
     throw new Error(`Get Photo by ID error: ${error}`);
   }
 }
-
