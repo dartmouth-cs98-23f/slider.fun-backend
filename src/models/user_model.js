@@ -9,7 +9,7 @@ const userSchema = new Schema(
     userName: String,
     about: String,
     sliderScore: Number,
-    level: { type: Schema.Types.ObjectId, ref: 'Level' },
+    photos: { type: Schema.Types.ObjectId, ref: 'Photo' },
     dailyPuzzles: [{ type: Schema.Types.ObjectId, ref: 'UserPuzzleData' }]
   },
   {

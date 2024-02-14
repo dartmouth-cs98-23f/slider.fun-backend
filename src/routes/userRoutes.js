@@ -61,6 +61,28 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// add a photo object to the user
+router.put('/addPhoto/:id', async (req, res) => {
+  try {
+    await Users.addPhoto(req.params.id, req.body.photoId);
+    const result = await Users.getUser(req.params.id);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+// remove a photo data object from the user
+router.put('/removePhoto/:id', async (req, res) => {
+  try {
+    await Users.removePhoto(req.params.id, req.body.photoId);
+    const result = await Users.getUser(req.params.id);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 // add a user puzzle data object to the user
 router.put('/addPuzzleData/:id', async (req, res) => {
   try {

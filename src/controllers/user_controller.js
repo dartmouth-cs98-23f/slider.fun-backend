@@ -45,6 +45,31 @@ export async function updateUser(id, updateFields) {
     throw new Error(`Update user error: ${error}`);
   }
 }
+// add a photo object to user
+export async function addPhoto(id, photoId) {
+  try {
+    const user = await User.findById(id);
+    user.photos.push(photoId)
+    await user.save();
+    return user;
+  } catch (error) {
+    throw new Error(`Update user error: ${error}`);
+  }
+}
+
+// Remove a photo object from user
+export async function removePhoto(id, photoId) {
+  try {
+    const user = await User.findById(id);
+    if (!user) throw new Error('User not found');
+    user.photos = user.photos.filter(photoId => photoId.toString() !== photoId);
+    await user.save();
+    return user;
+  } catch (error) {
+    throw new Error(`Update user error: ${error}`);
+  }
+}
+
 
 // add a puzzle data object to user
 export async function addPuzzleData(id, puzzleDataId) {
