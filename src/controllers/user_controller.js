@@ -2,6 +2,7 @@ import jwt from 'jwt-simple';
 import dotenv from 'dotenv';
 import User from '../models/user_model.js';
 import { getLevel } from './level_controller.js';
+import { deletePhoto } from './photo_controller.js'
 
 dotenv.config({ silent: true });
 
@@ -66,16 +67,21 @@ export async function addPhoto(id, photoId) {
 // Remove a photo object from user
 export async function removePhoto(id, photoId) {
   try {
+
+    // delete photo object from user
     const user = await User.findById(id);
     if (!user) throw new Error('User not found');
-    user.photos = user.photos.filter(photoId => photoId.toString() !== photoId);
+    user.photos = user.photos.filter(id => id.toString() !== photoId);
     await user.save();
+
+    // delete photo object from database
+    await deletePhoto(photoId);
+
     return user;
   } catch (error) {
     throw new Error(`Update user error: ${error}`);
   }
 }
-
 
 // add a puzzle data object to user
 export async function addPuzzleData(id, puzzleDataId) {
