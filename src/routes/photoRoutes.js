@@ -13,6 +13,7 @@ router.post('/new', async (req, res) => {
         const result = await Photo.createPhoto(req.body);
         res.json(result);
     } catch (error) {
+        
         res.status(500).json({ error });
     }
 });

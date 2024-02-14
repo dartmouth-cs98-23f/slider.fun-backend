@@ -9,7 +9,7 @@ const userSchema = new Schema(
     userName: String,
     about: String,
     sliderScore: Number,
-    photos: { type: Schema.Types.ObjectId, ref: 'Photo' },
+    photos: [{ type: Schema.Types.ObjectId, ref: 'Photo' }],
     dailyPuzzles: [{ type: Schema.Types.ObjectId, ref: 'UserPuzzleData' }]
   },
   {
@@ -20,7 +20,7 @@ const userSchema = new Schema(
 );
 
 userSchema.pre('save', async function beforeyYourModelSave(next) {
-  
+
   const user = this;
   if (!user.isModified('password')) return next();
 
