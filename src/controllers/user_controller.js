@@ -48,8 +48,14 @@ export async function updateUser(id, updateFields) {
 // add a photo object to user
 export async function addPhoto(id, photoId) {
   try {
+
     const user = await User.findById(id);
+    if (user.photos === undefined ){
+      user.photos = []
+    }
+
     user.photos.push(photoId)
+
     await user.save();
     return user;
   } catch (error) {
@@ -136,6 +142,7 @@ export const signup = async ({
   user.userName = userName;
   user.level = await getLevel(level);
   user.dailyPuzzles = [];
+  user.photos = [];
   user.sliderScore = 0;
   user.about = about;
 
