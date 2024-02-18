@@ -63,13 +63,9 @@ router.get('/:id', async (req, res) => {
 
 // add a photo object to the user
 router.put('/addPhoto/:id', async (req, res) => {
-
   try {
-
-    await Users.addPhoto(req.body.id, req.params.id);
-
+    await Users.addPhoto(req.params.id, req.body.photoId);
     const result = await Users.getUser(req.params.id);
-
     res.json(result);
   } catch (error) {
     res.status(500).json({ error });
@@ -79,7 +75,7 @@ router.put('/addPhoto/:id', async (req, res) => {
 // remove a photo data object from the user
 router.put('/removePhoto/:id', async (req, res) => {
   try {
-    await Users.removePhoto(req.params.id, req.body.id);
+    await Users.removePhoto(req.params.id, req.body.photoId);
     const result = await Users.getUser(req.params.id);
     res.json(result);
   } catch (error) {
