@@ -1,4 +1,5 @@
 import Photo from '../models/photo_model.js';
+import {getUser} from './user_controller.js';
 
 // Create Photo
 export async function createPhoto(photoFields) {
@@ -15,10 +16,16 @@ export async function createPhoto(photoFields) {
       status: property.status
     }));
 
+    const author = await getUser(photoFields.authorId);
+    if (!author) {
+      throw new Error(`User with ID ${photoFields.authorId} was not found`);
+    }
+
     const newPhoto = new Photo();
     newPhoto.imageUrl = photoFields.imageUrl;
-    newPhoto.photoProperties = photoProperties
-    
+    newPhoto.photoProperties = photoProperties;
+    newPhoto.likes = 0;
+    newPhoto.authorId = photoFields.authorId;
     
     const photo = await newPhoto.save();
     return photo;
@@ -26,7 +33,6 @@ export async function createPhoto(photoFields) {
     throw new Error(`Create Photo error: ${error}`);
   }
 }
-
 
 // Get all photos
 export async function getAllPhotos() {
