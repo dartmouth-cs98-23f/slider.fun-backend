@@ -33,7 +33,7 @@ router.get('/all', async (req, res) => {
 // GET DAILY PUZZLE BY DATE
 router.get('/byDate', async (req, res) => {
   try {
-    const result = await DailyPuzzle.getDailyPuzzleByDate(req.params.date);
+    const result = await DailyPuzzle.getDailyPuzzleByDate(req.query.date);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error });
