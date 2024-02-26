@@ -136,7 +136,7 @@ export async function updateSliderScore(id, count) {
     }
 
     user.sliderScore += count;
-    
+
     await user.save();
     return user;
   } catch (error) {
@@ -192,6 +192,7 @@ export const signup = async ({
   user.photos = [];
   user.sliderScore = 0;
   user.about = about;
+  user.clout = 1;
 
   await user.save();
 

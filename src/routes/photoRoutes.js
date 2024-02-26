@@ -48,6 +48,17 @@ router.get('/getLikes/:id', async (req, res) => {
     }
 });
 
+// VALIDATE PHOTO
+router.put('/validate/:id', async (req, res) => {
+    try {
+        const result = await Photo.validatePhoto(req.params.id, req.body.userId);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+});
+
+
 // ADD A PROPERTY TO A PHOTO'S PROPERTIES LIST
 router.put('/addProperty/:id', async (req, res) => {
     try {

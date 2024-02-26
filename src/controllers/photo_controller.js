@@ -32,6 +32,7 @@ export async function createPhoto(photoFields) {
     newPhoto.photoProperties = photoProperties;
     newPhoto.likedBy = [];
     newPhoto.authorId = photoFields.authorId;
+    newPhoto.validated = false;
     
     const photo = await newPhoto.save();
     return photo;
@@ -80,7 +81,25 @@ export async function deletePhoto(id) {
   }
 }
 
-
+// Update a Photo field by ID
+export async function validatePhoto(id, userId) {
+  try {
+    const user = await getUser(userId);
+    if (!user) {
+      throw new Error(`User with ID: ${userId} does not exist`);
+    }
+    
+    if (user.clout !== 5){
+      throw new Error(`User with ID: ${userId} does not have enough cloud to validate photo`);
+    }
+    const photo = await getPhotoById(id);
+    photo.validated = true;
+    const updatedPhoto = await photo.save();
+    return updatedPhoto;
+  } catch (error) {
+    throw new Error(`Validate Photo error: ${error}`);
+  }
+}
 
 // Update a Photo field by ID
 export async function updatePhoto(id, updateFields) {

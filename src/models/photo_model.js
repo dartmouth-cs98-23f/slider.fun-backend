@@ -4,6 +4,7 @@ const PhotoSchema = new Schema({
     imageUrl: String,
     authorId: String,
     title: String,
+    validated: Boolean,
     likedBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     photoProperties: [
         {
