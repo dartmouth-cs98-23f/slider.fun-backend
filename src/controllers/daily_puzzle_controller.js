@@ -39,6 +39,7 @@ export async function getDailyPuzzleByID(id) {
 // Get Daily Puzzle by the date
 export async function getDailyPuzzleByDate(date) {
   try {
+
     const returnDailyPuzzle = await DailyPuzzle.findOne({ date });
 
     if (!returnDailyPuzzle) {
