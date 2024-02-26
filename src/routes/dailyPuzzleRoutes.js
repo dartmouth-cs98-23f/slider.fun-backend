@@ -33,9 +33,7 @@ router.get('/all', async (req, res) => {
 // GET DAILY PUZZLE BY DATE
 router.get('/byDate', async (req, res) => {
   try {
-    // Access the date from req.query instead of req.body
-    const date = req.params.date; // Assuming "date" is the query parameter
-    const result = await DailyPuzzle.getDailyPuzzleByDate({ date });
+    const result = await DailyPuzzle.getDailyPuzzleByDate(req.params.date);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error });
