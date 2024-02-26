@@ -2,6 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 
 const PhotoSchema = new Schema({
     imageUrl: String,
+    authorId: String,
+    likes: Number,
     photoProperties: [
         {
             name: { type: String, required: true },

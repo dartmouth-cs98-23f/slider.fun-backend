@@ -48,6 +48,26 @@ router.delete('/removeProperty/:id', async (req, res) => {
     }
 });
 
+// INCREASE PHOTO LIKE COUNT BY 1 
+router.put('/addLike/:id', async (req, res) => {
+    try {
+        const result = await Photo.addLike(req.params.id);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+});
+
+// DECREASE PHOTO LIKE COUNT BY 1 
+router.put('/removeLike/:id', async (req, res) => {
+    try {
+        const result = await Photo.removeLike(req.params.id);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+});
+
 // UPDATE A PHOTO FIELD
 router.put('/:id', async (req, res) => {
     try {
