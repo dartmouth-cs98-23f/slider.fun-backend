@@ -55,6 +55,7 @@ export async function deletePhoto(id) {
 }
 
 
+
 // Update a Photo field by ID
 export async function updatePhoto(id, updateFields) {
   try {
@@ -62,6 +63,34 @@ export async function updatePhoto(id, updateFields) {
     return updatedPhoto;
   } catch (error) {
     throw new Error(`Update Photo error: ${error}`);
+  }
+}
+
+// Increase like count by 1
+export async function addLike(id) {
+  try {
+    const photo = await getPhotoById(id);
+    photo.likes += 1;
+    const updatedPhoto = await photo.save();
+    return updatedPhoto;
+  } catch (error) {
+    throw new Error(`Delete Photo error: ${error}`);
+  }
+}
+
+// Decrease like count by 1
+export async function removeLike(id) {
+  try {
+    const photo = await getPhotoById(id);
+    if (photo.likes > 0) {
+      photo.likes -= 1;
+      const updatedPhoto = await photo.save();
+      return updatedPhoto;
+    } else {
+      return photo;
+    }
+  } catch (error) {
+    throw new Error(`Delete Photo error: ${error}`);
   }
 }
 
