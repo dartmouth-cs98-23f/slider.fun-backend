@@ -51,6 +51,16 @@ router.get('/all', async (req, res) => {
   }
 });
 
+// Get username for given user Id
+router.get('/username/:id', async (req, res) => {
+  try {
+    const result = await Users.getUserName(req.params.id);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 // get user for given id
 router.get('/:id', async (req, res) => {
   try {
@@ -99,6 +109,16 @@ router.put('/removePuzzleData/:id', async (req, res) => {
   try {
     await Users.removePuzzleData(req.params.id, req.body.puzzleDataId);
     const result = await Users.getUser(req.params.id);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+// remove a user puzzle data object from the user
+router.put('/updateScore/:id', async (req, res) => {
+  try {
+    const result = await Users.updateSliderScore(req.params.id, req.body.count);  
     res.json(result);
   } catch (error) {
     res.status(500).json({ error });

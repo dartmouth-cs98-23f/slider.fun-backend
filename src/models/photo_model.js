@@ -3,7 +3,8 @@ import mongoose, { Schema } from 'mongoose';
 const PhotoSchema = new Schema({
     imageUrl: String,
     authorId: String,
-    likes: Number,
+    title: String,
+    likedBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     photoProperties: [
         {
             name: { type: String, required: true },

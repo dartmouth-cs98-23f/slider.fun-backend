@@ -22,9 +22,15 @@ export async function createPhoto(photoFields) {
     }
 
     const newPhoto = new Photo();
+    if (photoFields.title){
+      newPhoto.title = photoFields.title;
+    } else{
+      newPhoto.title = "";
+    }
+    
     newPhoto.imageUrl = photoFields.imageUrl;
     newPhoto.photoProperties = photoProperties;
-    newPhoto.likes = 0;
+    newPhoto.likedBy = [];
     newPhoto.authorId = photoFields.authorId;
     
     const photo = await newPhoto.save();
@@ -38,6 +44,26 @@ export async function createPhoto(photoFields) {
 export async function getAllPhotos() {
   try {
     const photos = await Photo.find({}).sort([['date', -1]]);
+    return photos;
+  } catch {
+    throw new Error(`Get All Photo error: ${error}`);
+  }
+}
+
+// Get all photos sorted by the number of likes they have
+export async function getAllPhotosSorted() {
+  try {
+    const photos = await Photo.aggregate([
+      {
+        $addFields: {
+          likedByLength: { $size: "$likedBy" }
+        }
+      },
+      {
+        $sort: { likedByLength: -1 }
+      }
+    ]);
+
     return photos;
   } catch {
     throw new Error(`Get All Photo error: ${error}`);
@@ -66,31 +92,66 @@ export async function updatePhoto(id, updateFields) {
   }
 }
 
-// Increase like count by 1
-export async function addLike(id) {
+// add a user to the liked list for photo with given id
+export async function addLike(id, userId) {
   try {
     const photo = await getPhotoById(id);
-    photo.likes += 1;
+    if (!photo) {
+      throw new Error(`Photo with ID: ${id} does not exist`);
+    }
+
+    const user = await getUser(userId);
+    if (!user) {
+      throw new Error(`User with ID: ${userId} does not exist`);
+    }
+
+    const userAlreadyLiked = photo.likedBy.some(u => u.toString() === userId);
+    if (!userAlreadyLiked) {
+      photo.likedBy.push(user);
+    } else {
+      throw new Error(`User with ID: ${userId} has already liked the photo`);
+    }
+    
     const updatedPhoto = await photo.save();
     return updatedPhoto;
   } catch (error) {
-    throw new Error(`Delete Photo error: ${error}`);
+    throw new Error(`Add like error: ${error}`);
   }
 }
 
-// Decrease like count by 1
-export async function removeLike(id) {
+// remove user from the liked by list
+export async function removeLike(id, userId) {
   try {
     const photo = await getPhotoById(id);
-    if (photo.likes > 0) {
-      photo.likes -= 1;
-      const updatedPhoto = await photo.save();
-      return updatedPhoto;
-    } else {
-      return photo;
+    if (!photo) {
+      throw new Error(`Photo with ID: ${id} does not exist`);
     }
+
+    const user = await getUser(userId);
+    if (!user) {
+      throw new Error(`User with ID: ${userId} does not exist`);
+    }
+
+    photo.likedBy = photo.likedBy.filter(u => u.toString() !== userId);
+
+    const updatedPhoto = await photo.save();
+    return updatedPhoto;
   } catch (error) {
-    throw new Error(`Delete Photo error: ${error}`);
+    throw new Error(`Delete like error: ${error}`);
+  }
+}
+
+// returns the number of likes for the given photo
+export async function numLikes(id) {
+  try {
+    const photo = await getPhotoById(id);
+    if (!photo) {
+      throw new Error(`Photo with ID: ${id} does not exist`);
+    }
+
+    return photo.likedBy.length;
+  } catch (error) {
+    throw new Error(`Get Num likes error: ${error}`);
   }
 }
 
