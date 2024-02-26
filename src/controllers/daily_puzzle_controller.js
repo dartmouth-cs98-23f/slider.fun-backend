@@ -9,7 +9,7 @@ export async function createDailyPuzzle(puzzleFields) {
     throw new Error(`A puzzle for ${puzzleFields.date} already exists.`);
   }
 
-  const photoReturned= await getPhotoById(puzzleFields.photo);
+  const photoReturned = await getPhotoById(puzzleFields.photo);
   if (!photoReturned) {
     throw new Error(`A Photo for ID ${puzzleFields.photo} was not found.`);
   }
@@ -17,7 +17,7 @@ export async function createDailyPuzzle(puzzleFields) {
   const dailyPuzzle = new DailyPuzzle();
   dailyPuzzle.photo = photoReturned
   dailyPuzzle.date = puzzleFields.date
-  
+
   try {
     const savedDailyPuzzle = await dailyPuzzle.save();
     return savedDailyPuzzle;
@@ -25,7 +25,7 @@ export async function createDailyPuzzle(puzzleFields) {
     throw new Error(`Create Daily Puzzle error: ${error}`);
   }
 }
-  
+
 // Get Daily Puzzle with the given id
 export async function getDailyPuzzleByID(id) {
   try {
@@ -37,12 +37,12 @@ export async function getDailyPuzzleByID(id) {
 }
 
 // Get Daily Puzzle by the date
-export async function getDailyPuzzleByDate(inputFields) {
+export async function getDailyPuzzleByDate(date) {
   try {
-    const returnDailyPuzzle = await DailyPuzzle.findOne({ date: inputFields.date });
+    const returnDailyPuzzle = await DailyPuzzle.findOne({ date });
 
     if (!returnDailyPuzzle) {
-      throw new Error(`A daily puzzle for date ${puzzleFields.date} doesn't exists.`);
+      throw new Error(`A daily puzzle for date ${date} doesn't exists.`);
     }
     return returnDailyPuzzle;
 
@@ -60,8 +60,8 @@ export async function getAllDailyPuzzles() {
     throw new Error(`Get All Daily Puzzles error: ${error}`);
   }
 }
-  
-  
+
+
 // Delete a Daily Puzzle
 export async function deleteDailyPuzzle(id) {
   try {
@@ -71,7 +71,7 @@ export async function deleteDailyPuzzle(id) {
     throw new Error(`Remove Daily Puzzle error: ${error}`);
   }
 }
-  
+
 // Updating a Daily Puzzle
 export async function updateDailyPuzzle(id, fields) {
   try {
@@ -81,4 +81,3 @@ export async function updateDailyPuzzle(id, fields) {
     throw new Error(`Update Daily Puzzle error: ${error}`);
   }
 }
-  
