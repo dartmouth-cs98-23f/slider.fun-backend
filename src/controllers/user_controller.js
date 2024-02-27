@@ -36,6 +36,20 @@ export async function getUser(id) {
   }
 }
 
+// Return the username for the given id
+export async function getUserName(id) {
+  try {
+    const user = await getUser(id);
+    if(!user){
+      throw new Error(`User for ID: ${id} does not exist`);
+    }
+
+    return user.userName;
+  } catch (error) {
+    throw new Error(`Get user error: ${error}`);
+  }
+}
+
 // update user fields
 export async function updateUser(id, updateFields) {
   try {
@@ -112,6 +126,24 @@ export async function removePuzzleData(id, puzzleDataId) {
   }
 }
 
+// Update slided score by count
+export async function updateSliderScore(id, count) {
+  try {
+    
+    const user = await getUser(id);
+    if (!user){
+      throw new Error(`Found no user with ID: ${id}`);
+    }
+
+    user.sliderScore += count;
+
+    await user.save();
+    return user;
+  } catch (error) {
+    throw new Error(`Update slider score error: ${error}`);
+  }
+}
+
 export const signin = async ({
   email, password, userName
 }) => {
@@ -139,9 +171,14 @@ export const signup = async ({
     throw new Error('You must provide email and password');
   }
 
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
+  const existingUserEmail = await User.findOne({ email });
+  if (existingUserEmail) {
     throw new Error('Email is in use');
+  }
+
+  const existingUserName = await User.findOne({ userName });
+  if (existingUserName) {
+    throw new Error('Username is not available');
   }
 
   const user = new User();
@@ -155,6 +192,7 @@ export const signup = async ({
   user.photos = [];
   user.sliderScore = 0;
   user.about = about;
+  user.clout = 1;
 
   await user.save();
 
