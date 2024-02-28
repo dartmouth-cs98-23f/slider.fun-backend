@@ -1,7 +1,6 @@
 import jwt from 'jwt-simple';
 import dotenv from 'dotenv';
 import User from '../models/user_model.js';
-import { getLevel } from './level_controller.js';
 import { deletePhoto, getPhotoById } from './photo_controller.js'
 
 dotenv.config({ silent: true });
@@ -16,7 +15,7 @@ export async function getUsers() {
   }
 }
 
-// delete user by id
+// Delete user with given id
 export async function deleteUser(id) {
   try {
     const user = await User.findByIdAndDelete(id);
@@ -36,7 +35,7 @@ export async function getUser(id) {
   }
 }
 
-// Return the username for the given id
+// Return the username for the user with given id
 export async function getUserName(id) {
   try {
     const user = await getUser(id);
@@ -50,7 +49,7 @@ export async function getUserName(id) {
   }
 }
 
-// update user fields
+// Update user fields
 export async function updateUser(id, updateFields) {
   try {
     const user = await User.findByIdAndUpdate(id, updateFields);
@@ -60,6 +59,7 @@ export async function updateUser(id, updateFields) {
     throw new Error(`Update user error: ${error}`);
   }
 }
+
 // add a photo object to user
 export async function addPhoto(id, photoId) {
   try {
@@ -102,7 +102,7 @@ export async function removePhoto(id, photoId) {
   }
 }
 
-// add a puzzle data object to user
+// Add a puzzle data object to user
 export async function addPuzzleData(id, puzzleDataId) {
   try {
     const user = await getUser(id);
@@ -126,7 +126,7 @@ export async function removePuzzleData(id, puzzleDataId) {
   }
 }
 
-// Update slided score by count
+// Update slider score by count
 export async function updateSliderScore(id, count) {
   try {
     
@@ -144,6 +144,7 @@ export async function updateSliderScore(id, count) {
   }
 }
 
+// Sign the user in - validate they exist and have provided the right credentials
 export const signin = async ({
   email, password, userName
 }) => {
@@ -164,8 +165,9 @@ export const signin = async ({
   return tokenForUser(user);
 }
 
+// Create new user
 export const signup = async ({
-  email, password, name, userName, level, about
+  email, password, name, userName, about
 }) => {
   if (!email || !password) {
     throw new Error('You must provide email and password');
@@ -187,7 +189,6 @@ export const signup = async ({
   user.name = name;
   user.password = password;
   user.userName = userName;
-  user.level = await getLevel(level);
   user.dailyPuzzles = [];
   user.photos = [];
   user.sliderScore = 0;
@@ -205,7 +206,7 @@ function tokenForUser(user) {
   return token
 }
 
-// decodes the token and gets the userID from it and returns the user
+// Decodes the token and gets the userID from it and returns the user
 export async function getUserFromToken(token) {
   try {
     const decoded = jwt.decode(token, process.env.AUTH_SECRET);

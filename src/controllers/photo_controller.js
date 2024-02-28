@@ -1,7 +1,7 @@
 import Photo from '../models/photo_model.js';
 import {getUser} from './user_controller.js';
 
-// Create Photo
+// Create new Photo
 export async function createPhoto(photoFields) {
   try {
     const photoProperties = photoFields.photoProperties.map(property => ({
@@ -71,7 +71,7 @@ export async function getAllPhotosSorted() {
   }
 }
 
-// Delete a Photo by ID
+// Delete a Photo with given ID
 export async function deletePhoto(id) {
   try {
     const deletedPhoto = await Photo.deleteOne({_id: id});
@@ -81,7 +81,7 @@ export async function deletePhoto(id) {
   }
 }
 
-// Update a Photo field by ID
+// Validate a photo if the user has enough "clout"
 export async function validatePhoto(id, userId) {
   try {
     const user = await getUser(userId);
@@ -111,7 +111,7 @@ export async function updatePhoto(id, updateFields) {
   }
 }
 
-// add a user to the liked list for photo with given id
+// Add a user to the "likedBy" list for photo with given id
 export async function addLike(id, userId) {
   try {
     const photo = await getPhotoById(id);
@@ -138,7 +138,7 @@ export async function addLike(id, userId) {
   }
 }
 
-// remove user from the liked by list
+// remove user from the "likedBy" list for current photo
 export async function removeLike(id, userId) {
   try {
     const photo = await getPhotoById(id);
@@ -196,7 +196,7 @@ export async function addProperty(id, updateFields) {
   }
 }
 
-// Remove a property from Photo Properties1
+// Remove a property from Photo Properties
 export async function removeProperty(id, updateFields) {
   try {
     const photo = await Photo.findById(id);
@@ -210,7 +210,6 @@ export async function removeProperty(id, updateFields) {
     throw new Error(`Get Photo by ID error: ${error}`);
   }
 }
-
 
 // Gets a Photo by ID
 export async function getPhotoById(id) {

@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import * as Users from '../controllers/user_controller.js';
-// import { requireSignin } from '../services/passport';
 
 const router = Router();
 
@@ -8,6 +7,7 @@ router.get('/', (req, res) => {
   res.json({ message: 'welcome to our user router!' });
 });
 
+// SING USER IN
 router.post('/signin', async (req, res) => {
   try {
     const token = await Users.signin(req.body);
@@ -17,7 +17,7 @@ router.post('/signin', async (req, res) => {
   }
 });
 
-// get user from token
+// GET USER FROM TOKEN
 router.get('/me', async (req, res) => {
   try {
     // Assuming Bearer token
@@ -29,8 +29,7 @@ router.get('/me', async (req, res) => {
   }
 });
 
-
-// Create User
+// CREATE NEW USER
 router.post('/new', async (req, res) => {
   try {
     const token = await Users.signup(req.body);
@@ -40,7 +39,7 @@ router.post('/new', async (req, res) => {
   }
 });
 
-// Get all users
+// GET ALL USERS
 router.get('/all', async (req, res) => {
   try {
     const result = await Users.getUsers();
@@ -51,7 +50,7 @@ router.get('/all', async (req, res) => {
   }
 });
 
-// Get username for given user Id
+// GET USERNAME FROM GIVEN ID
 router.get('/username/:id', async (req, res) => {
   try {
     const result = await Users.getUserName(req.params.id);
@@ -61,7 +60,7 @@ router.get('/username/:id', async (req, res) => {
   }
 });
 
-// get user for given id
+// GET USER FOR GIVEN ID
 router.get('/:id', async (req, res) => {
   try {
     const result = await Users.getUser(req.params.id);
@@ -71,7 +70,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// add a photo object to the user
+// ADD A PHOTO OBJECT TO THE GIVEN USER
 router.put('/addPhoto/:id', async (req, res) => {
   try {
     await Users.addPhoto(req.params.id, req.body.photoId);
@@ -82,7 +81,7 @@ router.put('/addPhoto/:id', async (req, res) => {
   }
 });
 
-// remove a photo data object from the user
+// REMOVE A PHOTO OBJECT FROM THE GIVEN USER
 router.put('/removePhoto/:id', async (req, res) => {
   try {
     await Users.removePhoto(req.params.id, req.body.photoId);
@@ -93,7 +92,7 @@ router.put('/removePhoto/:id', async (req, res) => {
   }
 });
 
-// add a user puzzle data object to the user
+// ADD A USERPUZZLEDATA TO THE GIVEN USER
 router.put('/addPuzzleData/:id', async (req, res) => {
   try {
     await Users.addPuzzleData(req.params.id, req.body.puzzleDataId);
@@ -104,7 +103,7 @@ router.put('/addPuzzleData/:id', async (req, res) => {
   }
 });
 
-// remove a user puzzle data object from the user
+// REMOVE A USERPUZZLEDATA FROM THE GIVEN USER
 router.put('/removePuzzleData/:id', async (req, res) => {
   try {
     await Users.removePuzzleData(req.params.id, req.body.puzzleDataId);
@@ -115,7 +114,7 @@ router.put('/removePuzzleData/:id', async (req, res) => {
   }
 });
 
-// remove a user puzzle data object from the user
+// UPDATE USER SCORE
 router.put('/updateScore/:id', async (req, res) => {
   try {
     const result = await Users.updateSliderScore(req.params.id, req.body.count);  
@@ -125,7 +124,7 @@ router.put('/updateScore/:id', async (req, res) => {
   }
 });
 
-// update user
+// UPDATE USER 
 router.put('/:id', async (req, res) => {
   try {
     await Users.updateUser(req.params.id, req.body);
@@ -136,7 +135,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-//  delete user by id
+// DELETE USER WITH GIVEN ID
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -146,4 +145,5 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error });
   }
 });
+
 export default router;

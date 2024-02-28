@@ -35,7 +35,7 @@ export async function createUserPuzzleData(fields) {
   }
 }
   
-// Get Puzzle Data with the given id
+// Get Puzzle Data with the given ID
 export async function getPuzzleData(id) {
   try {
     const returnPuzzleData = await UserPuzzleData.findById(id);
@@ -44,7 +44,6 @@ export async function getPuzzleData(id) {
     throw new Error(`Get Puzzle Data error: ${error}`);
   }
 }
-
 
 // Get All Puzzle Data
 export async function getAllPuzzleData() {
@@ -55,17 +54,7 @@ export async function getAllPuzzleData() {
     throw new Error(`Get All Puzzle Data error: ${error}`);
   }
 }
-  
-// Delete a Puzzle Data 
-export async function deletePuzzleData(id) {
-  try {
-    const removedPuzzleData = await UserPuzzleData.deleteOne({ _id: id });
-    return removedPuzzleData.deletedCount;
-  } catch (error) {
-    throw new Error(`Remove Puzzle Data error: ${error}`);
-  }
-}
-  
+
 // Updating Puzzle Data
 export async function updatePuzzleData(id, fields) {
   try {
@@ -73,6 +62,16 @@ export async function updatePuzzleData(id, fields) {
     return updatePuzzleData;
   } catch (error) {
     throw new Error(`Update Puzzle Data error: ${error}`);
+  }
+}
+  
+// Delete Puzzle Data with given ID
+export async function deletePuzzleData(id) {
+  try {
+    const removedPuzzleData = await UserPuzzleData.deleteOne({ _id: id });
+    return removedPuzzleData.deletedCount;
+  } catch (error) {
+    throw new Error(`Remove Puzzle Data error: ${error}`);
   }
 }
   
