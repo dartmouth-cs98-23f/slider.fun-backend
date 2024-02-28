@@ -62,7 +62,6 @@ export async function getAllDailyPuzzles() {
   }
 }
 
-
 // Delete a Daily Puzzle
 export async function deleteDailyPuzzle(id) {
   try {

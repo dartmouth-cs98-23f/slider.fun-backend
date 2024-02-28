@@ -28,7 +28,7 @@ router.get('/all', async (req, res) => {
     }
 });
 
-// GET ALL PHOTOS SORTED
+// GET ALL PHOTOS SORTED BY LIKE COUNT (IN DECREASING ORDER)
 router.get('/allSorted', async (req, res) => {
     try {
         const result = await Photo.getAllPhotosSorted();
@@ -48,7 +48,7 @@ router.get('/getLikes/:id', async (req, res) => {
     }
 });
 
-// VALIDATE PHOTO
+// VALIDATE PHOTO 
 router.put('/validate/:id', async (req, res) => {
     try {
         const result = await Photo.validatePhoto(req.params.id, req.body.userId);
@@ -57,7 +57,6 @@ router.put('/validate/:id', async (req, res) => {
         res.status(500).json({ error });
     }
 });
-
 
 // ADD A PROPERTY TO A PHOTO'S PROPERTIES LIST
 router.put('/addProperty/:id', async (req, res) => {
@@ -70,7 +69,7 @@ router.put('/addProperty/:id', async (req, res) => {
 });
 
 // REMOVE A PROPERTY FROM A PHOTO'S PROPERTIES LIST
-router.delete('/removeProperty/:id', async (req, res) => {
+router.put('/removeProperty/:id', async (req, res) => {
     try {
         const result = await Photo.removeProperty(req.params.id, req.body);
         res.json(result);
@@ -79,7 +78,7 @@ router.delete('/removeProperty/:id', async (req, res) => {
     }
 });
 
-// INCREASE PHOTO LIKE COUNT BY 1 
+// LIKE PHOTO 
 router.put('/addLike/:id', async (req, res) => {
     try {
         const result = await Photo.addLike(req.params.id, req.body.userId);
@@ -89,7 +88,7 @@ router.put('/addLike/:id', async (req, res) => {
     }
 });
 
-// DECREASE PHOTO LIKE COUNT BY 1 
+// REMOVE LIKE FROM PHOTO  
 router.put('/removeLike/:id', async (req, res) => {
     try {
         const result = await Photo.removeLike(req.params.id, req.body.userId);
