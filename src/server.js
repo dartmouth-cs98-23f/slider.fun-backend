@@ -3,11 +3,13 @@ import cors from 'cors';
 import path from 'path';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import cron from 'node-cron';
 
 import userRoutes from './routes/userRoutes.js';
 import photoRoutes from './routes/photoRoutes.js';
 import dailyPuzzleRoutes from './routes/dailyPuzzleRoutes.js';
 import userPuzzleDataRoutes from './routes/userPuzzleDataRoutes.js';
+import UserModel from './models/user_model.js';
 
 // initialize
 const app = express();
@@ -65,4 +67,14 @@ async function startServer() {
   }
 }
 
+// Schedule the task to run at the start of evey day
+cron.schedule('0 0 * * *', async () => {
+  console.log('Resetting dailyTaskStatus for all users');
+  try {
+    await UserModel.updateMany({}, { $set: { dailyTaskStatus: false } });
+    console.log('Successfully reset dailyTaskStatus for all users');
+  } catch (error) {
+    console.error('Failed to reset dailyTaskStatus', error);
+  }
+});
 startServer();

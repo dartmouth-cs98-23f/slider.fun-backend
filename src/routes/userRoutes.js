@@ -124,6 +124,16 @@ router.put('/updateScore/:id', async (req, res) => {
   }
 });
 
+// UPDATE DAILY PUZZLE STATUS
+router.put('/completePuzzle/:id', async (req, res) => {
+  try {
+    const result = await Users.updateDailyPuzzleStatus(req.params.id);  
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 // UPDATE USER 
 router.put('/:id', async (req, res) => {
   try {

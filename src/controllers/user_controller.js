@@ -144,6 +144,24 @@ export async function updateSliderScore(id, count) {
   }
 }
 
+// check if the user has done today's puzzle
+export async function updateDailyPuzzleStatus(id) {
+  try {
+    
+    const user = await getUser(id);
+    if (!user){
+      throw new Error(`Found no user with ID: ${id}`);
+    }
+
+    user.dailyTaskStatus = true;
+    await user.save();
+    return user;
+
+  } catch (error) {
+    throw new Error(`Update slider score error: ${error}`);
+  }
+}
+
 // Sign the user in - validate they exist and have provided the right credentials
 export const signin = async ({
   email, password, userName
@@ -165,9 +183,11 @@ export const signin = async ({
   return tokenForUser(user);
 }
 
+
+
 // Create new user
 export const signup = async ({
-  email, password, name, userName, about
+  email, password, name, userName, about, sliderScore
 }) => {
   if (!email || !password) {
     throw new Error('You must provide email and password');
@@ -191,12 +211,18 @@ export const signup = async ({
   user.userName = userName;
   user.dailyPuzzles = [];
   user.photos = [];
-  user.sliderScore = 0;
   user.about = about;
   user.clout = 1;
 
-  await user.save();
+  if(!sliderScore){
+    user.sliderScore = 0
+    user.dailyTaskStatus = false;
+  } else {
+    user.sliderScore = sliderScore;
+    user.dailyTaskStatus = true;
+  }
 
+  await user.save();
   return tokenForUser(user);
 };
 
