@@ -32,7 +32,7 @@ export async function createPhoto(photoFields) {
     newPhoto.photoProperties = photoProperties;
     newPhoto.likedBy = [];
     newPhoto.authorId = photoFields.authorId;
-    newPhoto.validated = false;
+    newPhoto.validated = true;
     
     const photo = await newPhoto.save();
     return photo;
@@ -44,7 +44,7 @@ export async function createPhoto(photoFields) {
 // Get all photos
 export async function getAllPhotos() {
   try {
-    const photos = await Photo.find({}).sort([['date', -1]]);
+    const photos = await Photo.find({ validated: true }).sort([['date', -1]]);
     return photos;
   } catch {
     throw new Error(`Get All Photo error: ${error}`);
@@ -56,6 +56,9 @@ export async function getAllPhotosSorted() {
   try {
     const photos = await Photo.aggregate([
       {
+        $match: { validated: true } 
+      },
+      {
         $addFields: {
           likedByLength: { $size: "$likedBy" }
         }
@@ -64,7 +67,6 @@ export async function getAllPhotosSorted() {
         $sort: { likedByLength: -1 }
       }
     ]);
-
     return photos;
   } catch {
     throw new Error(`Get All Photo error: ${error}`);
@@ -93,6 +95,7 @@ export async function validatePhoto(id, userId) {
       throw new Error(`User with ID: ${userId} does not have enough cloud to validate photo`);
     }
     const photo = await getPhotoById(id);
+    photo.reported = [];
     photo.validated = true;
     const updatedPhoto = await photo.save();
     return updatedPhoto;
@@ -208,6 +211,40 @@ export async function removeProperty(id, updateFields) {
     return updatedPhoto;
   } catch (error) {
     throw new Error(`Get Photo by ID error: ${error}`);
+  }
+}
+
+// Add a user to the "reported" list for photo with given id
+export async function reportPhoto(id, userId) {
+  try {
+    const photo = await getPhotoById(id);
+    if (!photo) {
+      throw new Error(`Photo with ID: ${id} does not exist`);
+    }
+
+    const user = await getUser(userId);
+    if (!user) {
+      throw new Error(`User with ID: ${userId} does not exist`);
+    }
+
+    if (!photo.reported){
+      photo.reported = []
+    } 
+    
+    const userAlreadyReported = photo.reported.some(u => u.toString() === userId);
+    if (userAlreadyReported) {
+      throw new Error(`User with ID: ${userId} has already reported the photo`);
+    }
+    photo.reported.push(user);
+
+    if (photo.reported.length >= 3){
+      photo.validated = false;
+    }
+    
+    const updatedPhoto = await photo.save();
+    return updatedPhoto;
+  } catch (error) {
+    throw new Error(`Report Photo error: ${error}`);
   }
 }
 
