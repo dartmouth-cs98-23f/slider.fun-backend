@@ -137,7 +137,7 @@ export async function removePuzzleData(id, puzzleDataId) {
 }
 
 // Update slider score by count
-export async function updateSliderScore(id, count) {
+export async function addSliderScore(id, count) {
   try {
     
     const user = await getUser(id);

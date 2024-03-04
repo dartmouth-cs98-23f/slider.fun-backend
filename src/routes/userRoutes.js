@@ -126,9 +126,9 @@ router.put('/removePuzzleData/:id', async (req, res) => {
 });
 
 // UPDATE USER SCORE
-router.put('/updateScore/:id', async (req, res) => {
+router.put('/addScore/:id', async (req, res) => {
   try {
-    const result = await Users.updateSliderScore(req.params.id, req.body.count);  
+    const result = await Users.addSliderScore(req.params.id, req.body.count);  
     res.json(result);
   } catch (error) {
     res.status(500).json({ error });

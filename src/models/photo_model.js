@@ -6,6 +6,7 @@ const PhotoSchema = new Schema({
     title: String,
     validated: Boolean,
     likedBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    reported: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     photoProperties: [
         {
             name: { type: String, required: true },

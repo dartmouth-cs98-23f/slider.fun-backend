@@ -38,6 +38,16 @@ router.get('/allSorted', async (req, res) => {
     }
 });
 
+// REPORT PHOTO
+router.put('/reportPhoto/:id', async (req, res) => {
+    try {
+        const result = await Photo.reportPhoto(req.params.id, req.body.userId);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+});
+
 // GET NUM LIKES FOR PHOTO WITH GIVEN ID
 router.get('/getLikes/:id', async (req, res) => {
     try {
