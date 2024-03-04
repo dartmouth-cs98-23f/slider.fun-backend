@@ -15,6 +15,16 @@ export async function getUsers() {
   }
 }
 
+// Returns top 25 users based off sliderScore
+export async function getTop25() {
+  try {
+    const topUsers = await User.find({}).sort({ sliderScore: -1 }).limit(25);
+    return topUsers;
+  } catch (error) {
+    throw new Error(`Get top users error: ${error}`);
+  }
+}
+
 // Delete user with given id
 export async function deleteUser(id) {
   try {
