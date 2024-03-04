@@ -7,6 +7,7 @@
 |https://slider-fun.onrender.com/api/users/signin | post | userRoutes | validates user credentials and signs them in |
 |https://slider-fun.onrender.com/api/users/me | get | userRoutes | get user from token |
 |https://slider-fun.onrender.com/api/users/all | get | userRoutes | get all users |
+|https://slider-fun.onrender.com/api/users/top25 | get | userRoutes | get top 25 users based off sliderScores |
 |https://slider-fun.onrender.com/api/users/:id | get | userRoutes | get user by id |
 |https://slider-fun.onrender.com/api/users/me | get | userRoutes | get user from token |
 |https://slider-fun.onrender.com/api/users/username/:id | get | userRoutes | get username for given id |

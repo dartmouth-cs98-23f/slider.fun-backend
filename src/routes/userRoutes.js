@@ -50,6 +50,17 @@ router.get('/all', async (req, res) => {
   }
 });
 
+// GET TOP 25 USERS
+router.get('/top25', async (req, res) => {
+  try {
+    const result = await Users.getTop25();
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 // GET USERNAME FROM GIVEN ID
 router.get('/username/:id', async (req, res) => {
   try {
