@@ -2,6 +2,7 @@ import jwt from 'jwt-simple';
 import dotenv from 'dotenv';
 import User from '../models/user_model.js';
 import { deletePhoto, getPhotoById } from './photo_controller.js'
+import { getAchievementByName, incrementUserCount } from './achievements_controller.js'
 
 dotenv.config({ silent: true });
 
@@ -136,6 +137,40 @@ export async function removePuzzleData(id, puzzleDataId) {
   }
 }
 
+// Remove a puzzle data object from user
+export async function addAchievement(id, achievementName) {
+  try {
+
+    const achievement = await getAchievementByName(achievementName);
+    if (!achievement){
+      throw new Error(`Achievement with name ${achievementName} does not exist`);
+    }
+
+    const user = await getUser(id);
+    if(!user){
+      throw new Error(`User for ID: ${id} does not exist`);
+    }
+
+    if (!user.achievements){
+      user.achievements = []
+    }
+
+    const userAlreadyHasAchievement = user.achievements.some(u => u.toString() === achievement.id);
+    if (!userAlreadyHasAchievement) {
+      user.achievements.push(achievement);
+      await incrementUserCount(achievementName);
+      
+    } else {
+      throw new Error(`User with ID: ${id} has already has achievement ${achievementName}`);
+    }
+
+    await user.save();
+    return user;
+  } catch (error) {
+    throw new Error(`Update user error: ${error}`);
+  }
+}
+
 // Update slider score by count
 export async function updateSliderScore(id, count) {
   try {
@@ -253,3 +288,4 @@ export async function getUserFromToken(token) {
     throw new Error(`Error getting user from token: ${error}`);
   }
 }
+
