@@ -159,7 +159,7 @@ export async function addAchievement(id, achievementName) {
     if (!userAlreadyHasAchievement) {
       user.achievements.push(achievement);
       await incrementUserCount(achievementName);
-      
+
     } else {
       throw new Error(`User with ID: ${id} has already has achievement ${achievementName}`);
     }
@@ -258,6 +258,7 @@ export const signup = async ({
   user.photos = [];
   user.about = about;
   user.clout = 1;
+  user.achievements = [];
 
   if(!sliderScore){
     user.sliderScore = 0
@@ -288,4 +289,5 @@ export async function getUserFromToken(token) {
     throw new Error(`Error getting user from token: ${error}`);
   }
 }
+
 
