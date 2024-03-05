@@ -9,6 +9,8 @@ import userRoutes from './routes/userRoutes.js';
 import photoRoutes from './routes/photoRoutes.js';
 import dailyPuzzleRoutes from './routes/dailyPuzzleRoutes.js';
 import userPuzzleDataRoutes from './routes/userPuzzleDataRoutes.js';
+import achievementRoutes from './routes/achievementRoutes.js';
+
 import UserModel from './models/user_model.js';
 
 // initialize
@@ -43,6 +45,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/photo', photoRoutes);
 app.use('/api/dailyPuzzle', dailyPuzzleRoutes);
 app.use('/api/userPuzzleData', userPuzzleDataRoutes);
+app.use('/api/achievement', achievementRoutes);
 
 // default index route
 app.get('/', (req, res) => {

@@ -81,6 +81,16 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// ADD AN ACHIEVEMENT TO THE GIVEN USER
+router.put('/addAchievement/:id', async (req, res) => {
+  try {
+    const result = await Users.addAchievement(req.params.id, req.body.achievementName);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 // ADD A PHOTO OBJECT TO THE GIVEN USER
 router.put('/addPhoto/:id', async (req, res) => {
   try {

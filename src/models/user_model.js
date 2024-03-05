@@ -10,6 +10,7 @@ const userSchema = new Schema(
     about: String,
     sliderScore: Number,
     clout: Number,
+    achievements: [{ type: Schema.Types.ObjectId, ref: 'Achievement' }],
     dailyTaskStatus: { type: Boolean, default: false },
     photos: [{ type: Schema.Types.ObjectId, ref: 'Photo' }],
     dailyPuzzles: [{ type: Schema.Types.ObjectId, ref: 'UserPuzzleData' }]
